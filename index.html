@@ -7,53 +7,74 @@
   <title>Social Hub</title>
 
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
+      min-height: 100vh;
       font-family: Arial, sans-serif;
-      background: #111;
+      background: #0b0b0f;
       color: white;
-      text-align: center;
     }
 
     header {
-      padding: 40px 20px 25px;
+      text-align: center;
+      padding: 45px 20px 25px;
     }
 
-    h1 {
-      font-size: 38px;
-      margin-bottom: 10px;
+    header h1 {
+      margin: 0;
+      font-size: 42px;
     }
 
-    .subtitle {
-      color: #aaa;
-      font-size: 17px;
+    header p {
+      margin-top: 10px;
+      color: #999;
+      font-size: 16px;
     }
 
     .container {
-      max-width: 500px;
+      width: 100%;
+      max-width: 600px;
       margin: auto;
       padding: 20px;
     }
 
-    .social-button {
+    .card {
       display: block;
-      width: 100%;
-      padding: 18px 0;
-      margin: 15px 0;
-      border-radius: 14px;
+      padding: 25px 20px;
+      margin-bottom: 18px;
+      border-radius: 20px;
       text-decoration: none;
       color: white;
-      font-size: 20px;
+      text-align: left;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.35);
+      transition: transform 0.15s;
+    }
+
+    .card:active {
+      transform: scale(0.97);
+    }
+
+    .card-title {
+      font-size: 25px;
       font-weight: bold;
-      box-sizing: border-box;
+    }
+
+    .card-description {
+      margin-top: 7px;
+      font-size: 15px;
+      opacity: 0.85;
     }
 
     .kik {
-      background: #00b900;
+      background: #00a82d;
     }
 
     .snapchat {
-      background: #f7e600;
+      background: #f4e600;
       color: #111;
     }
 
@@ -65,8 +86,11 @@
       background: #229ed9;
     }
 
-    .social-button:active {
-      transform: scale(0.97);
+    footer {
+      text-align: center;
+      padding: 25px;
+      color: #666;
+      font-size: 13px;
     }
   </style>
 </head>
@@ -75,38 +99,47 @@
 
   <header>
     <h1>Social Hub</h1>
-
-    <div class="subtitle">
-      Kik • Snapchat • Instagram • Telegram
-    </div>
+    <p>Find people • Share your socials • Connect</p>
   </header>
 
   <div class="container">
 
-    <a class="social-button kik"
-       href="javascript:comingSoon('Kik')">
-      Kik
+    <a class="card kik" href="javascript:openSection('Kik')">
+      <div class="card-title">🟢 Kik</div>
+      <div class="card-description">
+        Find and share Kik usernames.
+      </div>
     </a>
 
-    <a class="social-button snapchat"
-       href="javascript:comingSoon('Snapchat')">
-      Snapchat
+    <a class="card snapchat" href="javascript:openSection('Snapchat')">
+      <div class="card-title">👻 Snapchat</div>
+      <div class="card-description">
+        Find and share Snapchat usernames.
+      </div>
     </a>
 
-    <a class="social-button instagram"
-       href="javascript:comingSoon('Instagram')">
-      Instagram
+    <a class="card instagram" href="javascript:openSection('Instagram')">
+      <div class="card-title">📸 Instagram</div>
+      <div class="card-description">
+        Find and share Instagram usernames.
+      </div>
     </a>
 
-    <a class="social-button telegram"
-       href="javascript:comingSoon('Telegram')">
-      Telegram
+    <a class="card telegram" href="javascript:openSection('Telegram')">
+      <div class="card-title">✈️ Telegram</div>
+      <div class="card-description">
+        Find and share Telegram usernames.
+      </div>
     </a>
 
   </div>
 
+  <footer>
+    Social Hub
+  </footer>
+
   <script>
-    function comingSoon(platform) {
+    function openSection(platform) {
       alert(platform + " section coming next!");
     }
   </script>
