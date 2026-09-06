@@ -21,23 +21,63 @@
 
     header {
       text-align: center;
-      padding: 35px 20px 20px;
+      padding: 40px 20px 25px;
     }
 
     header h1 {
       margin: 0;
-      font-size: 36px;
+      font-size: 40px;
     }
 
     header p {
       color: #999;
-      margin-top: 8px;
+      margin-top: 10px;
     }
 
     .container {
+      width: 100%;
       max-width: 600px;
       margin: auto;
       padding: 20px;
+    }
+
+    .card {
+      display: block;
+      padding: 25px 20px;
+      margin-bottom: 18px;
+      border-radius: 20px;
+      text-decoration: none;
+      color: white;
+      text-align: left;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.35);
+    }
+
+    .card-title {
+      font-size: 25px;
+      font-weight: bold;
+    }
+
+    .card-description {
+      margin-top: 7px;
+      font-size: 15px;
+      opacity: 0.85;
+    }
+
+    .kik {
+      background: #00a82d;
+    }
+
+    .snapchat {
+      background: #f4e600;
+      color: #111;
+    }
+
+    .instagram {
+      background: #d62976;
+    }
+
+    .telegram {
+      background: #229ed9;
     }
 
     .back {
@@ -62,7 +102,6 @@
     }
 
     input,
-    select,
     textarea {
       width: 100%;
       padding: 14px;
@@ -97,66 +136,144 @@
       line-height: 1.5;
     }
 
+    #home {
+      display: block;
+    }
+
+    #kikPage {
+      display: none;
+    }
+
     #result {
       margin-top: 20px;
       padding: 15px;
       border-radius: 12px;
       background: #202027;
       display: none;
+      line-height: 1.5;
     }
   </style>
 </head>
 
 <body>
 
-  <header>
-    <h1>🟢 Kik</h1>
-    <p>Share your Kik username</p>
-  </header>
+  <!-- HOME PAGE -->
 
-  <div class="container">
+  <div id="home">
 
-    <a class="back" href="index.html">
-      ← Back
-    </a>
+    <header>
+      <h1>Social Hub</h1>
+      <p>Find people • Share your socials • Connect</p>
+    </header>
 
-    <div class="panel">
+    <div class="container">
 
-      <h2>Add your Kik</h2>
+      <a class="card kik" href="#" onclick="showKik(); return false;">
+        <div class="card-title">🟢 Kik</div>
+        <div class="card-description">
+          Find and share Kik usernames.
+        </div>
+      </a>
 
-      <p class="info">
-        Enter the username you want people to see.
-      </p>
+      <a class="card snapchat" href="#">
+        <div class="card-title">👻 Snapchat</div>
+        <div class="card-description">
+          Coming next.
+        </div>
+      </a>
 
-      <input
-        type="text"
-        id="username"
-        placeholder="Kik username"
-        maxlength="30"
-      >
+      <a class="card instagram" href="#">
+        <div class="card-title">📸 Instagram</div>
+        <div class="card-description">
+          Coming next.
+        </div>
+      </a>
 
-      <textarea
-        id="bio"
-        placeholder="Short description (optional)"
-        maxlength="150"
-      ></textarea>
-
-      <button onclick="previewProfile()">
-        Preview Profile
-      </button>
-
-      <div id="result"></div>
+      <a class="card telegram" href="#">
+        <div class="card-title">✈️ Telegram</div>
+        <div class="card-description">
+          Coming next.
+        </div>
+      </a>
 
     </div>
 
   </div>
 
+
+  <!-- KIK PAGE -->
+
+  <div id="kikPage">
+
+    <header>
+      <h1>🟢 Kik</h1>
+      <p>Share your Kik username</p>
+    </header>
+
+    <div class="container">
+
+      <a class="back" href="#" onclick="showHome(); return false;">
+        ← Back
+      </a>
+
+      <div class="panel">
+
+        <h2>Add your Kik</h2>
+
+        <p class="info">
+          Enter the username you want people to see.
+        </p>
+
+        <input
+          type="text"
+          id="username"
+          placeholder="Kik username"
+          maxlength="30"
+        >
+
+        <textarea
+          id="bio"
+          placeholder="Short description (optional)"
+          maxlength="150"
+        ></textarea>
+
+        <button onclick="previewProfile()">
+          Preview Profile
+        </button>
+
+        <div id="result"></div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
   <script>
+
+    function showKik() {
+      document.getElementById("home").style.display = "none";
+      document.getElementById("kikPage").style.display = "block";
+      window.scrollTo(0, 0);
+    }
+
+    function showHome() {
+      document.getElementById("kikPage").style.display = "none";
+      document.getElementById("home").style.display = "block";
+      window.scrollTo(0, 0);
+    }
+
     function previewProfile() {
 
-      const username = document.getElementById("username").value.trim();
-      const bio = document.getElementById("bio").value.trim();
-      const result = document.getElementById("result");
+      const username =
+        document.getElementById("username").value.trim();
+
+      const bio =
+        document.getElementById("bio").value.trim();
+
+      const result =
+        document.getElementById("result");
 
       if (username === "") {
         alert("Please enter a Kik username.");
@@ -171,7 +288,9 @@
         escapeHTML(username) +
         "<br><br>" +
         "<strong>About:</strong><br>" +
-        (bio ? escapeHTML(bio) : "No description added.");
+        (bio
+          ? escapeHTML(bio)
+          : "No description added.");
     }
 
     function escapeHTML(text) {
@@ -179,6 +298,7 @@
       div.textContent = text;
       return div.innerHTML;
     }
+
   </script>
 
 </body>
