@@ -124,6 +124,20 @@ button {
     background: #229ed9;
     color: white;
 }
+.social-logo {
+    width: 22px;
+    height: 22px;
+    vertical-align: middle;
+    margin-right: 8px;
+    object-fit: contain;
+}
+
+.social-button-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
 
 .info {
     color: #aaa;
@@ -646,36 +660,60 @@ async function loadDiscoverProfiles() {
             <h3>🌐 Socials</h3>
 
             ${profile.kik ? `
-                <a href="https://kik.me/${encodeURIComponent(profile.kik)}" target="_blank">
-                    <button class="kik-button">
-                        🟢 Kik — @${escapeHTML(profile.kik)}
-                    </button>
-                </a>
-            ` : ""}
+    <a href="https://kik.me/${encodeURIComponent(profile.kik)}" target="_blank">
+        <button class="kik-button">
+            <span class="social-button-content">
+                <svg class="social-logo" viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="12" cy="12" r="10" fill="white"/>
+                    <text x="12" y="16" text-anchor="middle" font-size="11" font-weight="bold" fill="#00c853">k</text>
+                </svg>
+                Kik — @${escapeHTML(profile.kik)}
+            </span>
+        </button>
+    </a>
+` : ""}
 
-            ${profile.Snapchat ? `
-                <a href="https://www.snapchat.com/add/${encodeURIComponent(profile.Snapchat)}" target="_blank">
-                    <button class="snap-button">
-                        👻 Snapchat — @${escapeHTML(profile.Snapchat)}
-                    </button>
-                </a>
-            ` : ""}
+${profile.snapchat ? `
+    <a href="https://www.snapchat.com/add/${encodeURIComponent(profile.snapchat)}" target="_blank">
+        <button class="snap-button">
+            <span class="social-button-content">
+                <svg class="social-logo" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 2.5c-4.2 0-7 2.8-7 7.1 0 1.8.6 3.2 1.6 4.3-.7.5-1.4.8-2.2 1 .3.8 1.1 1.3 2.1 1.3.4 0 .8-.1 1.1-.2-.1 1.5.5 2.5 1.7 3.1.8.4 1.7.6 2.7.6s1.9-.2 2.7-.6c1.2-.6 1.8-1.6 1.7-3.1.3.1.7.2 1.1.2 1 0 1.8-.5 2.1-1.3-.8-.2-1.5-.5-2.2-1 1-1.1 1.6-2.5 1.6-4.3 0-4.3-2.8-7.1-7-7.1z" fill="white"/>
+                </svg>
+                Snapchat — @${escapeHTML(profile.snapchat)}
+            </span>
+        </button>
+    </a>
+` : ""}
 
-            ${profile.instagram ? `
-                <a href="https://www.instagram.com/${encodeURIComponent(profile.instagram)}/" target="_blank">
-                    <button class="instagram-button">
-                        📸 Instagram — @${escapeHTML(profile.instagram)}
-                    </button>
-                </a>
-            ` : ""}
+${profile.instagram ? `
+    <a href="https://www.instagram.com/${encodeURIComponent(profile.instagram)}/" target="_blank">
+        <button class="instagram-button">
+            <span class="social-button-content">
+                <svg class="social-logo" viewBox="0 0 24 24" aria-hidden="true">
+                    <rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="white" stroke-width="2"/>
+                    <circle cx="12" cy="12" r="4" fill="none" stroke="white" stroke-width="2"/>
+                    <circle cx="17.5" cy="6.5" r="1.2" fill="white"/>
+                </svg>
+                Instagram — @${escapeHTML(profile.instagram)}
+            </span>
+        </button>
+    </a>
+` : ""}
 
-            ${profile.telegram ? `
-                <a href="https://t.me/${encodeURIComponent(profile.telegram)}" target="_blank">
-                    <button class="telegram-button">
-                        ✈️ Telegram — @${escapeHTML(profile.telegram)}
-                    </button>
-                </a>
-            ` : ""}
+${profile.telegram ? `
+    <a href="https://t.me/${encodeURIComponent(profile.telegram)}" target="_blank">
+        <button class="telegram-button">
+            <span class="social-button-content">
+                <svg class="social-logo" viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="12" cy="12" r="10" fill="white"/>
+                    <path d="M6.5 11.8l10.7-4.2-1.7 8.7-3.2-2.4-1.9 1.8-.1-3.1z" fill="#229ed9"/>
+                </svg>
+                Telegram — @${escapeHTML(profile.telegram)}
+            </span>
+        </button>
+    </a>
+` : ""}
 
         </div>
 
