@@ -511,13 +511,104 @@ function showPage(page) {
     document.getElementById("instagramPage").style.display = "none";
     document.getElementById("telegramPage").style.display = "none";
     document.getElementById("createPage").style.display = "none";
+    document.getElementById("discoverPage").style.display = "none";
 
     document.getElementById(page).style.display = "block";
 
     window.scrollTo(0, 0);
 }
 
+async function loadDiscoverProfiles() {
 
+    const results = document.getElementById("discoverResults");
+
+    results.innerHTML = `
+        <p class="info">Loading profiles...</p>
+    `;
+
+    const { data, error } = await supabaseClient
+        .from("profiles")
+        .select("*")
+        .order("id", { ascending: false });
+
+    if (error) {
+
+        console.error(error);
+
+        results.innerHTML = `
+            <div class="result">
+                <h3>❌ Couldn't load profiles</h3>
+                <p class="info">
+                    ${escapeHTML(error.message)}
+                </p>
+            </div>
+        `;
+
+        return;
+    }
+
+    if (!data || data.length === 0) {
+
+        results.innerHTML = `
+            <div class="result">
+                <h3>🌎 No profiles yet</h3>
+                <p class="info">
+                    Be the first person to create a Social Hub profile!
+                </p>
+            </div>
+        `;
+
+        return;
+    }
+
+    results.innerHTML = data.map(profile => `
+
+        <div class="result">
+
+            <h2>${escapeHTML(profile.display_name)}</h2>
+
+            <p>
+                ${escapeHTML(profile.bio || "")}
+            </p>
+
+            <h3>🌐 Socials</h3>
+
+            ${profile.kik ? `
+                <a href="https://kik.me/${encodeURIComponent(profile.kik)}" target="_blank">
+                    <button class="kik-button">
+                        🟢 Kik — @${escapeHTML(profile.kik)}
+                    </button>
+                </a>
+            ` : ""}
+
+            ${profile.snapchat ? `
+                <a href="https://www.snapchat.com/add/${encodeURIComponent(profile.snapchat)}" target="_blank">
+                    <button class="snap-button">
+                        👻 Snapchat — @${escapeHTML(profile.snapchat)}
+                    </button>
+                </a>
+            ` : ""}
+
+            ${profile.instagram ? `
+                <a href="https://www.instagram.com/${encodeURIComponent(profile.instagram)}/" target="_blank">
+                    <button class="instagram-button">
+                        📸 Instagram — @${escapeHTML(profile.instagram)}
+                    </button>
+                </a>
+            ` : ""}
+
+            ${profile.telegram ? `
+                <a href="https://t.me/${encodeURIComponent(profile.telegram)}" target="_blank">
+                    <button class="telegram-button">
+                        ✈️ Telegram — @${escapeHTML(profile.telegram)}
+                    </button>
+                </a>
+            ` : ""}
+
+        </div>
+
+    `).join("");
+}
 /* Clean Username */
 
 function cleanUsername(username) {
