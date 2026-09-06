@@ -46,6 +46,49 @@ h1 {
 .card h2 {
     margin-top: 0;
 }
+.home-logo {
+    width: 58px;
+    height: 58px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+}
+
+.home-logo svg {
+    width: 42px;
+    height: 42px;
+    display: block;
+}
+
+.card {
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.card:active {
+    transform: scale(0.98);
+}
+
+.kik {
+    box-shadow: 0 8px 24px rgba(0, 200, 83, 0.12);
+}
+
+.snapchat {
+    box-shadow: 0 8px 24px rgba(255, 252, 0, 0.10);
+}
+
+.instagram {
+    box-shadow: 0 8px 24px rgba(255, 45, 117, 0.12);
+}
+
+.telegram {
+    box-shadow: 0 8px 24px rgba(34, 158, 217, 0.12);
+}
 
 .kik {
     border-left: 6px solid #00c853;
@@ -277,26 +320,85 @@ button {
 </div>
 
         <div class="card kik" onclick="showPage('kikPage')">
-            <h2>🟢 Kik</h2>
-            <p>Find and share your Kik username.</p>
-        </div>
 
-        <div class="card snapchat" onclick="showPage('snapchatPage')">
-            <h2>👻 Snapchat</h2>
-            <p>Find and share your Snapchat username.</p>
-        </div>
-
-        <div class="card instagram" onclick="showPage('instagramPage')">
-            <h2>📸 Instagram</h2>
-            <p>Find and share your Instagram username.</p>
-        </div>
-
-        <div class="card telegram" onclick="showPage('telegramPage')">
-            <h2>✈️ Telegram</h2>
-            <p>Find and share your Telegram username.</p>
-        </div>
-
+    <div class="home-logo kik-logo">
+        <svg viewBox="0 0 48 48" aria-hidden="true">
+            <circle cx="24" cy="24" r="22" fill="white"/>
+            <text x="24" y="32" text-anchor="middle"
+                  font-size="25" font-weight="bold"
+                  fill="#00c853">k</text>
+        </svg>
     </div>
+
+    <h2>Kik</h2>
+
+    <p>Find and share your Kik username.</p>
+
+</div>
+
+
+<div class="card snapchat" onclick="showPage('snapchatPage')">
+
+    <div class="home-logo snapchat-logo">
+        <svg viewBox="0 0 48 48" aria-hidden="true">
+            <path d="M24 5c-9 0-15 6-15 15 0 4 1.4 7 3.7 9.4
+                     -1.7 1.1-3.1 1.6-4.7 1.9
+                     .6 2 2.2 3.2 4.5 3.2
+                     .8 0 1.6-.2 2.4-.5
+                     -.1 3.2 1.1 5.2 4 6.5
+                     1.5.7 3.2 1 5.1 1
+                     1.9 0 3.6-.3 5.1-1
+                     2.9-1.3 4.1-3.3 4-6.5
+                     .8.3 1.6.5 2.4.5
+                     2.3 0 3.9-1.2 4.5-3.2
+                     -1.6-.3-3- .8-4.7-1.9
+                     C38.6 27 40 24 40 20
+                     C40 11 33 5 24 5z"
+                  fill="white"/>
+        </svg>
+    </div>
+
+    <h2>Snapchat</h2>
+
+    <p>Find and share your Snapchat username.</p>
+
+</div>
+
+
+<div class="card instagram" onclick="showPage('instagramPage')">
+
+    <div class="home-logo instagram-logo">
+        <svg viewBox="0 0 48 48" aria-hidden="true">
+            <rect x="6" y="6" width="36" height="36" rx="11"
+                  fill="none" stroke="white" stroke-width="4"/>
+            <circle cx="24" cy="24" r="9"
+                    fill="none" stroke="white" stroke-width="4"/>
+            <circle cx="34" cy="14" r="2.5" fill="white"/>
+        </svg>
+    </div>
+
+    <h2>Instagram</h2>
+
+    <p>Find and share your Instagram username.</p>
+
+</div>
+
+
+<div class="card telegram" onclick="showPage('telegramPage')">
+
+    <div class="home-logo telegram-logo">
+        <svg viewBox="0 0 48 48" aria-hidden="true">
+            <circle cx="24" cy="24" r="22" fill="white"/>
+            <path d="M10 23.5l25-10-4 20-8-6-5 4-.3-6.5z"
+                  fill="#229ed9"/>
+        </svg>
+    </div>
+
+    <h2>Telegram</h2>
+
+    <p>Find and share your Telegram username.</p>
+
+</div>
 
 <!-- CREATE PROFILE -->
 <div id="createPage">
