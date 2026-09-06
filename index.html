@@ -726,6 +726,100 @@ button:hover::after {
         animation: none;
     }
 }
+/* ================= SOCIAL PLATFORM POLISH ================= */
+
+.social-links {
+    display: grid;
+    gap: 10px;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 52px;
+    padding: 12px 15px;
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: 14px;
+    background: rgba(255,255,255,.025);
+    color: #fff;
+    text-decoration: none;
+    transition:
+        transform .2s ease,
+        border-color .2s ease,
+        background .2s ease,
+        box-shadow .2s ease;
+}
+
+.social-link:hover {
+    transform: translateY(-2px);
+    border-color: rgba(139,124,255,.35);
+    background: rgba(139,124,255,.07);
+    box-shadow: 0 10px 25px rgba(0,0,0,.22);
+}
+
+.social-link:active {
+    transform: scale(.98);
+}
+
+.social-link svg,
+.social-link img,
+.social-icon {
+    width: 30px;
+    height: 30px;
+    flex: 0 0 30px;
+}
+
+.social-link .social-name {
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.social-link .social-handle {
+    margin-left: auto;
+    color: #858392;
+    font-size: 13px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 48%;
+}
+
+/* Instagram */
+.social-link.instagram:hover {
+    border-color: rgba(225,48,108,.45);
+    box-shadow: 0 10px 30px rgba(225,48,108,.10);
+}
+
+/* Snapchat */
+.social-link.snapchat:hover {
+    border-color: rgba(255,221,0,.45);
+    box-shadow: 0 10px 30px rgba(255,221,0,.08);
+}
+
+/* Telegram */
+.social-link.telegram:hover {
+    border-color: rgba(34,158,217,.45);
+    box-shadow: 0 10px 30px rgba(34,158,217,.10);
+}
+
+/* Kik */
+.social-link.kik:hover {
+    border-color: rgba(0,255,126,.40);
+    box-shadow: 0 10px 30px rgba(0,255,126,.08);
+}
+
+@media (max-width: 480px) {
+    .social-link {
+        min-height: 50px;
+        padding: 11px 13px;
+    }
+
+    .social-link .social-handle {
+        max-width: 42%;
+        font-size: 12px;
+    }
+}
 </style>
 </head>
 
