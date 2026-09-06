@@ -532,7 +532,7 @@ async function loadDiscoverProfiles() {
     const { data, error } = await supabaseClient
         .from("profiles")
         .select("*")
-        .order("id", { ascending: false });
+        .order("display_name", { ascending: true });
 
     if (error) {
 
