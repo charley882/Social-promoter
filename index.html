@@ -687,7 +687,7 @@ function previewTelegram() {
 
 /* Full Social Hub Profile */
 
-function previewFullProfile() {
+async function previewFullProfile() {
 
     let name = document.getElementById("displayName").value.trim();
     let bio = document.getElementById("profileBio").value.trim();
@@ -709,8 +709,51 @@ function previewFullProfile() {
     );
 
     if (!name) {
-
         alert("Please enter a display name.");
+        return;
+    }
+
+    if (name.length > 50) {
+        alert("Display name must be 50 characters or less.");
+        return;
+    }
+
+    if (bio.length > 300) {
+        alert("Bio must be 300 characters or less.");
+        return;
+    }
+
+    if (!kik && !snapchat && !instagram && !telegram) {
+        alert("Please add at least one social username.");
+        return;
+    }
+
+    const profile = {
+        display_name: name,
+        bio: bio || null,
+        kik: kik || null,
+        snapchat: snapchat || null,
+        instagram: instagram || null,
+        telegram: telegram || null
+    };
+
+    const { data, error } = await supabaseClient
+        .from("profiles")
+        .insert([profile])
+        .select()
+        .single();
+
+    if (error) {
+
+        console.error(error);
+
+        document.getElementById("fullProfileResult").innerHTML = `
+            <div class="result">
+                <h3>❌ Something went wrong</h3>
+                <p>We couldn't save your profile.</p>
+                <p class="info">${escapeHTML(error.message)}</p>
+            </div>
+        `;
 
         return;
     }
@@ -761,7 +804,11 @@ function previewFullProfile() {
 
         <div class="result">
 
-            <h2>${escapeHTML(name)}</h2>
+            <h2>✅ Profile Saved!</h2>
+
+            <p>
+                <strong>${escapeHTML(name)}</strong>
+            </p>
 
             <p>
                 ${escapeHTML(bio)}
@@ -770,6 +817,10 @@ function previewFullProfile() {
             <h3>🌐 Socials</h3>
 
             ${socialLinks}
+
+            <p class="info">
+                Your profile has been saved to Social Hub.
+            </p>
 
         </div>
     `;
