@@ -155,6 +155,7 @@ button {
     display: block;
 }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 
 <body>
@@ -452,6 +453,16 @@ button {
 
 
 <script>
+/* Supabase Connection */
+
+const SUPABASE_URL = "https://mkrytigolsfpvpbdfrtj.supabase.co";
+
+const SUPABASE_KEY = "sb_publishable_SoXnFs6gs8pc8AayGiqIPA_31AfUCzt";
+
+const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
 
 /* Show Pages */
 
