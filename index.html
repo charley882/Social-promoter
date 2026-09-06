@@ -516,6 +516,9 @@ function showPage(page) {
     document.getElementById(page).style.display = "block";
 
     window.scrollTo(0, 0);
+    if (page === "discoverPage") {
+    loadDiscoverProfiles();
+}
 }
 
 async function loadDiscoverProfiles() {
