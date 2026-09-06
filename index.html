@@ -1,1 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <title>Social Hub</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: white;
+      text-align: center;
+    }
+
+    header {
+      padding: 40px 20px 25px;
+    }
+
+    h1 {
+      font-size: 38px;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      color: #aaa;
+      font-size: 17px;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .social-button {
+      display: block;
+      width: 100%;
+      padding: 18px 0;
+      margin: 15px 0;
+      border-radius: 14px;
+      text-decoration: none;
+      color: white;
+      font-size: 20px;
+      font-weight: bold;
+      box-sizing: border-box;
+    }
+
+    .kik {
+      background: #00b900;
+    }
+
+    .snapchat {
+      background: #f7e600;
+      color: #111;
+    }
+
+    .instagram {
+      background: #d62976;
+    }
+
+    .telegram {
+      background: #229ed9;
+    }
+
+    .social-button:active {
+      transform: scale(0.97);
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>Social Hub</h1>
+
+    <div class="subtitle">
+      Kik • Snapchat • Instagram • Telegram
+    </div>
+  </header>
+
+  <div class="container">
+
+    <a class="social-button kik"
+       href="javascript:comingSoon('Kik')">
+      Kik
+    </a>
+
+    <a class="social-button snapchat"
+       href="javascript:comingSoon('Snapchat')">
+      Snapchat
+    </a>
+
+    <a class="social-button instagram"
+       href="javascript:comingSoon('Instagram')">
+      Instagram
+    </a>
+
+    <a class="social-button telegram"
+       href="javascript:comingSoon('Telegram')">
+      Telegram
+    </a>
+
+  </div>
+
+  <script>
+    function comingSoon(platform) {
+      alert(platform + " section coming next!");
+    }
+  </script>
+
+</body>
+</html>
