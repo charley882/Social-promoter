@@ -169,6 +169,17 @@ button {
         <p class="subtitle">
             Connect through your favourite social platforms
         </p>
+        
+        <div class="card" onclick="showPage('createPage')"
+     style="text-align:center; border-left:6px solid #ffffff;">
+
+    <h2>👤 Create Your Profile</h2>
+
+    <p>
+        Create one profile for all your social platforms.
+    </p>
+
+</div>
 
         <div class="card kik" onclick="showPage('kikPage')">
             <h2>🟢 Kik</h2>
@@ -192,6 +203,79 @@ button {
 
     </div>
 
+<!-- CREATE PROFILE -->
+<div id="createPage">
+
+    <div class="back" onclick="showPage('home')">
+        ← Back
+    </div>
+
+    <div class="panel">
+
+        <h2>👤 Create Your Profile</h2>
+
+        <p class="info">
+            Create your Social Hub profile and add the social platforms you use.
+        </p>
+
+        <label>Display Name</label>
+
+        <input
+            type="text"
+            id="displayName"
+            placeholder="Your name or nickname"
+        >
+
+        <label>About You</label>
+
+        <textarea
+            id="profileBio"
+            placeholder="Tell people a little about yourself..."
+        ></textarea>
+
+        <h3>🟢 Kik</h3>
+
+        <input
+            type="text"
+            id="profileKik"
+            placeholder="Kik username (optional)"
+        >
+
+        <h3>👻 Snapchat</h3>
+
+        <input
+            type="text"
+            id="profileSnapchat"
+            placeholder="Snapchat username (optional)"
+        >
+
+        <h3>📸 Instagram</h3>
+
+        <input
+            type="text"
+            id="profileInstagram"
+            placeholder="Instagram username (optional)"
+        >
+
+        <h3>✈️ Telegram</h3>
+
+        <input
+            type="text"
+            id="profileTelegram"
+            placeholder="Telegram username (optional)"
+        >
+
+        <button
+            class="instagram-button"
+            onclick="previewFullProfile()"
+        >
+            Preview My Profile
+        </button>
+
+        <div id="fullProfileResult"></div>
+
+    </div>
+</div>
 
     <!-- KIK -->
     <div id="kikPage">
@@ -378,6 +462,7 @@ function showPage(page) {
     document.getElementById("snapchatPage").style.display = "none";
     document.getElementById("instagramPage").style.display = "none";
     document.getElementById("telegramPage").style.display = "none";
+    document.getElementById("createPage").style.display = "none";
 
     document.getElementById(page).style.display = "block";
 
@@ -584,6 +669,96 @@ function previewTelegram() {
                     Open Telegram Profile
                 </button>
             </a>
+
+        </div>
+    `;
+}
+
+/* Full Social Hub Profile */
+
+function previewFullProfile() {
+
+    let name = document.getElementById("displayName").value.trim();
+    let bio = document.getElementById("profileBio").value.trim();
+
+    let kik = cleanUsername(
+        document.getElementById("profileKik").value
+    );
+
+    let snapchat = cleanUsername(
+        document.getElementById("profileSnapchat").value
+    );
+
+    let instagram = cleanUsername(
+        document.getElementById("profileInstagram").value
+    );
+
+    let telegram = cleanUsername(
+        document.getElementById("profileTelegram").value
+    );
+
+    if (!name) {
+
+        alert("Please enter a display name.");
+
+        return;
+    }
+
+    let socialLinks = "";
+
+    if (kik) {
+        socialLinks += `
+            <a href="https://kik.me/${encodeURIComponent(kik)}" target="_blank">
+                <button class="kik-button">
+                    🟢 Kik — @${escapeHTML(kik)}
+                </button>
+            </a>
+        `;
+    }
+
+    if (snapchat) {
+        socialLinks += `
+            <a href="https://www.snapchat.com/add/${encodeURIComponent(snapchat)}" target="_blank">
+                <button class="snap-button">
+                    👻 Snapchat — @${escapeHTML(snapchat)}
+                </button>
+            </a>
+        `;
+    }
+
+    if (instagram) {
+        socialLinks += `
+            <a href="https://www.instagram.com/${encodeURIComponent(instagram)}/" target="_blank">
+                <button class="instagram-button">
+                    📸 Instagram — @${escapeHTML(instagram)}
+                </button>
+            </a>
+        `;
+    }
+
+    if (telegram) {
+        socialLinks += `
+            <a href="https://t.me/${encodeURIComponent(telegram)}" target="_blank">
+                <button class="telegram-button">
+                    ✈️ Telegram — @${escapeHTML(telegram)}
+                </button>
+            </a>
+        `;
+    }
+
+    document.getElementById("fullProfileResult").innerHTML = `
+
+        <div class="result">
+
+            <h2>${escapeHTML(name)}</h2>
+
+            <p>
+                ${escapeHTML(bio)}
+            </p>
+
+            <h3>🌐 Socials</h3>
+
+            ${socialLinks}
 
         </div>
     `;
