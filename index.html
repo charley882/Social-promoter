@@ -124,15 +124,23 @@
       padding: 15px;
       border: none;
       border-radius: 12px;
-      background: #00a82d;
-      color: white;
       font-size: 17px;
       font-weight: bold;
+    }
+
+    .kik-button {
+      background: #00a82d;
+      color: white;
     }
 
     .snap-button {
       background: #f4e600;
       color: #111;
+    }
+
+    .instagram-button {
+      background: #d62976;
+      color: white;
     }
 
     .info {
@@ -141,13 +149,15 @@
       line-height: 1.5;
     }
 
-    #home {
-      display: block;
+    #home,
+    #kikPage,
+    #snapchatPage,
+    #instagramPage {
+      display: none;
     }
 
-    #kikPage,
-    #snapchatPage {
-      display: none;
+    #home {
+      display: block;
     }
 
     .result {
@@ -174,32 +184,54 @@
 
     <div class="container">
 
-      <a class="card kik" href="#" onclick="showPage('kikPage'); return false;">
+      <a class="card kik"
+         href="#"
+         onclick="showPage('kikPage'); return false;">
+
         <div class="card-title">🟢 Kik</div>
+
         <div class="card-description">
           Find and share Kik usernames.
         </div>
+
       </a>
 
-      <a class="card snapchat" href="#" onclick="showPage('snapchatPage'); return false;">
+
+      <a class="card snapchat"
+         href="#"
+         onclick="showPage('snapchatPage'); return false;">
+
         <div class="card-title">👻 Snapchat</div>
+
         <div class="card-description">
           Find and share Snapchat usernames.
         </div>
+
       </a>
 
-      <a class="card instagram" href="#">
+
+      <a class="card instagram"
+         href="#"
+         onclick="showPage('instagramPage'); return false;">
+
         <div class="card-title">📸 Instagram</div>
+
         <div class="card-description">
-          Coming next.
+          Find and share Instagram usernames.
         </div>
+
       </a>
 
-      <a class="card telegram" href="#">
+
+      <a class="card telegram"
+         href="#">
+
         <div class="card-title">✈️ Telegram</div>
+
         <div class="card-description">
           Coming next.
         </div>
+
       </a>
 
     </div>
@@ -218,8 +250,12 @@
 
     <div class="container">
 
-      <a class="back" href="#" onclick="showPage('home'); return false;">
+      <a class="back"
+         href="#"
+         onclick="showPage('home'); return false;">
+
         ← Back
+
       </a>
 
       <div class="panel">
@@ -243,11 +279,18 @@
           maxlength="150"
         ></textarea>
 
-        <button onclick="previewKik()">
+        <button
+          class="kik-button"
+          onclick="previewKik()">
+
           Preview Profile
+
         </button>
 
-        <div id="kikResult" class="result"></div>
+        <div
+          id="kikResult"
+          class="result">
+        </div>
 
       </div>
 
@@ -267,8 +310,12 @@
 
     <div class="container">
 
-      <a class="back" href="#" onclick="showPage('home'); return false;">
+      <a class="back"
+         href="#"
+         onclick="showPage('home'); return false;">
+
         ← Back
+
       </a>
 
       <div class="panel">
@@ -295,10 +342,75 @@
         <button
           class="snap-button"
           onclick="previewSnapchat()">
+
           Preview Profile
+
         </button>
 
-        <div id="snapResult" class="result"></div>
+        <div
+          id="snapResult"
+          class="result">
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- INSTAGRAM -->
+
+  <div id="instagramPage">
+
+    <header>
+      <h1>📸 Instagram</h1>
+      <p>Share your Instagram username</p>
+    </header>
+
+    <div class="container">
+
+      <a class="back"
+         href="#"
+         onclick="showPage('home'); return false;">
+
+        ← Back
+
+      </a>
+
+      <div class="panel">
+
+        <h2>Add your Instagram</h2>
+
+        <p class="info">
+          Enter the Instagram username you want people to see.
+        </p>
+
+        <input
+          type="text"
+          id="instagramUsername"
+          placeholder="Instagram username"
+          maxlength="30"
+        >
+
+        <textarea
+          id="instagramBio"
+          placeholder="Short description (optional)"
+          maxlength="150"
+        ></textarea>
+
+        <button
+          class="instagram-button"
+          onclick="previewInstagram()">
+
+          Preview Profile
+
+        </button>
+
+        <div
+          id="instagramResult"
+          class="result">
+        </div>
 
       </div>
 
@@ -312,8 +424,12 @@
     function showPage(page) {
 
       document.getElementById("home").style.display = "none";
+
       document.getElementById("kikPage").style.display = "none";
+
       document.getElementById("snapchatPage").style.display = "none";
+
+      document.getElementById("instagramPage").style.display = "none";
 
       document.getElementById(page).style.display = "block";
 
@@ -371,6 +487,36 @@
 
       result.innerHTML =
         "<strong>👻 Snapchat</strong><br><br>" +
+        "<strong>Username:</strong> " +
+        escapeHTML(username) +
+        "<br><br>" +
+        "<strong>About:</strong><br>" +
+        (bio
+          ? escapeHTML(bio)
+          : "No description added.");
+    }
+
+
+    function previewInstagram() {
+
+      const username =
+        document.getElementById("instagramUsername").value.trim();
+
+      const bio =
+        document.getElementById("instagramBio").value.trim();
+
+      const result =
+        document.getElementById("instagramResult");
+
+      if (username === "") {
+        alert("Please enter an Instagram username.");
+        return;
+      }
+
+      result.style.display = "block";
+
+      result.innerHTML =
+        "<strong>📸 Instagram</strong><br><br>" +
         "<strong>Username:</strong> " +
         escapeHTML(username) +
         "<br><br>" +
