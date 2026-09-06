@@ -130,6 +130,11 @@
       font-weight: bold;
     }
 
+    .snap-button {
+      background: #f4e600;
+      color: #111;
+    }
+
     .info {
       color: #aaa;
       font-size: 14px;
@@ -140,11 +145,12 @@
       display: block;
     }
 
-    #kikPage {
+    #kikPage,
+    #snapchatPage {
       display: none;
     }
 
-    #result {
+    .result {
       margin-top: 20px;
       padding: 15px;
       border-radius: 12px;
@@ -157,7 +163,7 @@
 
 <body>
 
-  <!-- HOME PAGE -->
+  <!-- HOME -->
 
   <div id="home">
 
@@ -168,17 +174,17 @@
 
     <div class="container">
 
-      <a class="card kik" href="#" onclick="showKik(); return false;">
+      <a class="card kik" href="#" onclick="showPage('kikPage'); return false;">
         <div class="card-title">🟢 Kik</div>
         <div class="card-description">
           Find and share Kik usernames.
         </div>
       </a>
 
-      <a class="card snapchat" href="#">
+      <a class="card snapchat" href="#" onclick="showPage('snapchatPage'); return false;">
         <div class="card-title">👻 Snapchat</div>
         <div class="card-description">
-          Coming next.
+          Find and share Snapchat usernames.
         </div>
       </a>
 
@@ -201,7 +207,7 @@
   </div>
 
 
-  <!-- KIK PAGE -->
+  <!-- KIK -->
 
   <div id="kikPage">
 
@@ -212,7 +218,7 @@
 
     <div class="container">
 
-      <a class="back" href="#" onclick="showHome(); return false;">
+      <a class="back" href="#" onclick="showPage('home'); return false;">
         ← Back
       </a>
 
@@ -226,22 +232,73 @@
 
         <input
           type="text"
-          id="username"
+          id="kikUsername"
           placeholder="Kik username"
           maxlength="30"
         >
 
         <textarea
-          id="bio"
+          id="kikBio"
           placeholder="Short description (optional)"
           maxlength="150"
         ></textarea>
 
-        <button onclick="previewProfile()">
+        <button onclick="previewKik()">
           Preview Profile
         </button>
 
-        <div id="result"></div>
+        <div id="kikResult" class="result"></div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- SNAPCHAT -->
+
+  <div id="snapchatPage">
+
+    <header>
+      <h1>👻 Snapchat</h1>
+      <p>Share your Snapchat username</p>
+    </header>
+
+    <div class="container">
+
+      <a class="back" href="#" onclick="showPage('home'); return false;">
+        ← Back
+      </a>
+
+      <div class="panel">
+
+        <h2>Add your Snapchat</h2>
+
+        <p class="info">
+          Enter the Snapchat username you want people to see.
+        </p>
+
+        <input
+          type="text"
+          id="snapUsername"
+          placeholder="Snapchat username"
+          maxlength="30"
+        >
+
+        <textarea
+          id="snapBio"
+          placeholder="Short description (optional)"
+          maxlength="150"
+        ></textarea>
+
+        <button
+          class="snap-button"
+          onclick="previewSnapchat()">
+          Preview Profile
+        </button>
+
+        <div id="snapResult" class="result"></div>
 
       </div>
 
@@ -252,28 +309,28 @@
 
   <script>
 
-    function showKik() {
+    function showPage(page) {
+
       document.getElementById("home").style.display = "none";
-      document.getElementById("kikPage").style.display = "block";
-      window.scrollTo(0, 0);
-    }
-
-    function showHome() {
       document.getElementById("kikPage").style.display = "none";
-      document.getElementById("home").style.display = "block";
+      document.getElementById("snapchatPage").style.display = "none";
+
+      document.getElementById(page).style.display = "block";
+
       window.scrollTo(0, 0);
     }
 
-    function previewProfile() {
+
+    function previewKik() {
 
       const username =
-        document.getElementById("username").value.trim();
+        document.getElementById("kikUsername").value.trim();
 
       const bio =
-        document.getElementById("bio").value.trim();
+        document.getElementById("kikBio").value.trim();
 
       const result =
-        document.getElementById("result");
+        document.getElementById("kikResult");
 
       if (username === "") {
         alert("Please enter a Kik username.");
@@ -293,9 +350,43 @@
           : "No description added.");
     }
 
+
+    function previewSnapchat() {
+
+      const username =
+        document.getElementById("snapUsername").value.trim();
+
+      const bio =
+        document.getElementById("snapBio").value.trim();
+
+      const result =
+        document.getElementById("snapResult");
+
+      if (username === "") {
+        alert("Please enter a Snapchat username.");
+        return;
+      }
+
+      result.style.display = "block";
+
+      result.innerHTML =
+        "<strong>👻 Snapchat</strong><br><br>" +
+        "<strong>Username:</strong> " +
+        escapeHTML(username) +
+        "<br><br>" +
+        "<strong>About:</strong><br>" +
+        (bio
+          ? escapeHTML(bio)
+          : "No description added.");
+    }
+
+
     function escapeHTML(text) {
+
       const div = document.createElement("div");
+
       div.textContent = text;
+
       return div.innerHTML;
     }
 
