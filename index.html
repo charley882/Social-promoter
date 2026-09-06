@@ -1,542 +1,595 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Social Hub</title>
 
-  <title>Social Hub</title>
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0b0b0f;
+    color: white;
+}
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+.container {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+}
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: Arial, sans-serif;
-      background: #0b0b0f;
-      color: white;
-    }
+h1 {
+    text-align: center;
+    margin-bottom: 10px;
+}
 
-    header {
-      text-align: center;
-      padding: 40px 20px 25px;
-    }
+.subtitle {
+    text-align: center;
+    color: #aaa;
+    margin-bottom: 30px;
+}
 
-    header h1 {
-      margin: 0;
-      font-size: 40px;
-    }
+.card {
+    background: #17171d;
+    border-radius: 18px;
+    padding: 22px;
+    margin-bottom: 18px;
+    cursor: pointer;
+    transition: 0.2s;
+}
 
-    header p {
-      color: #999;
-      margin-top: 10px;
-    }
+.card:hover {
+    transform: scale(1.02);
+}
 
-    .container {
-      width: 100%;
-      max-width: 600px;
-      margin: auto;
-      padding: 20px;
-    }
+.card h2 {
+    margin-top: 0;
+}
 
-    .card {
-      display: block;
-      padding: 25px 20px;
-      margin-bottom: 18px;
-      border-radius: 20px;
-      text-decoration: none;
-      color: white;
-      text-align: left;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.35);
-    }
+.kik {
+    border-left: 6px solid #00c853;
+}
 
-    .card-title {
-      font-size: 25px;
-      font-weight: bold;
-    }
+.snapchat {
+    border-left: 6px solid #fffc00;
+}
 
-    .card-description {
-      margin-top: 7px;
-      font-size: 15px;
-      opacity: 0.85;
-    }
+.instagram {
+    border-left: 6px solid #ff2d75;
+}
 
-    .kik {
-      background: #00a82d;
-    }
+.telegram {
+    border-left: 6px solid #229ed9;
+}
 
-    .snapchat {
-      background: #f4e600;
-      color: #111;
-    }
+.back {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #aaa;
+    cursor: pointer;
+}
 
-    .instagram {
-      background: #d62976;
-    }
+.panel {
+    background: #17171d;
+    border-radius: 18px;
+    padding: 22px;
+}
 
-    .telegram {
-      background: #229ed9;
-    }
+input,
+textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 14px;
+    margin-top: 8px;
+    margin-bottom: 18px;
+    border: none;
+    border-radius: 10px;
+    background: #25252d;
+    color: white;
+    font-size: 16px;
+}
 
-    .back {
-      display: inline-block;
-      margin-bottom: 20px;
-      padding: 10px 16px;
-      border-radius: 12px;
-      background: #222229;
-      color: white;
-      text-decoration: none;
-    }
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
 
-    .panel {
-      background: #17171d;
-      border-radius: 20px;
-      padding: 22px;
-      margin-bottom: 20px;
-    }
+button {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
 
-    .panel h2 {
-      margin-top: 0;
-    }
+.kik-button {
+    background: #00c853;
+    color: white;
+}
 
-    input,
-    textarea {
-      width: 100%;
-      padding: 14px;
-      margin-top: 10px;
-      margin-bottom: 15px;
-      border: none;
-      border-radius: 12px;
-      background: #262630;
-      color: white;
-      font-size: 16px;
-    }
+.snap-button {
+    background: #fffc00;
+    color: black;
+}
 
-    textarea {
-      min-height: 100px;
-      resize: vertical;
-    }
+.instagram-button {
+    background: #ff2d75;
+    color: white;
+}
 
-    button {
-      width: 100%;
-      padding: 15px;
-      border: none;
-      border-radius: 12px;
-      font-size: 17px;
-      font-weight: bold;
-    }
+.telegram-button {
+    background: #229ed9;
+    color: white;
+}
 
-    .kik-button {
-      background: #00a82d;
-      color: white;
-    }
+.info {
+    color: #aaa;
+    font-size: 14px;
+}
 
-    .snap-button {
-      background: #f4e600;
-      color: #111;
-    }
+.result {
+    margin-top: 25px;
+    padding: 18px;
+    background: #22222a;
+    border-radius: 14px;
+}
 
-    .instagram-button {
-      background: #d62976;
-      color: white;
-    }
+.result a {
+    display: block;
+    margin-top: 15px;
+    text-decoration: none;
+}
 
-    .info {
-      color: #aaa;
-      font-size: 14px;
-      line-height: 1.5;
-    }
+#home,
+#kikPage,
+#snapchatPage,
+#instagramPage,
+#telegramPage {
+    display: none;
+}
 
-    #home,
-    #kikPage,
-    #snapchatPage,
-    #instagramPage {
-      display: none;
-    }
-
-    #home {
-      display: block;
-    }
-
-    .result {
-      margin-top: 20px;
-      padding: 15px;
-      border-radius: 12px;
-      background: #202027;
-      display: none;
-      line-height: 1.5;
-    }
-  </style>
+#home {
+    display: block;
+}
+</style>
 </head>
 
 <body>
 
-  <!-- HOME -->
+<div class="container">
 
-  <div id="home">
+    <!-- HOME -->
+    <div id="home">
 
-    <header>
-      <h1>Social Hub</h1>
-      <p>Find people • Share your socials • Connect</p>
-    </header>
+        <h1>🌐 Social Hub</h1>
 
-    <div class="container">
-
-      <a class="card kik"
-         href="#"
-         onclick="showPage('kikPage'); return false;">
-
-        <div class="card-title">🟢 Kik</div>
-
-        <div class="card-description">
-          Find and share Kik usernames.
-        </div>
-
-      </a>
-
-
-      <a class="card snapchat"
-         href="#"
-         onclick="showPage('snapchatPage'); return false;">
-
-        <div class="card-title">👻 Snapchat</div>
-
-        <div class="card-description">
-          Find and share Snapchat usernames.
-        </div>
-
-      </a>
-
-
-      <a class="card instagram"
-         href="#"
-         onclick="showPage('instagramPage'); return false;">
-
-        <div class="card-title">📸 Instagram</div>
-
-        <div class="card-description">
-          Find and share Instagram usernames.
-        </div>
-
-      </a>
-
-
-      <a class="card telegram"
-         href="#">
-
-        <div class="card-title">✈️ Telegram</div>
-
-        <div class="card-description">
-          Coming next.
-        </div>
-
-      </a>
-
-    </div>
-
-  </div>
-
-
-  <!-- KIK -->
-
-  <div id="kikPage">
-
-    <header>
-      <h1>🟢 Kik</h1>
-      <p>Share your Kik username</p>
-    </header>
-
-    <div class="container">
-
-      <a class="back"
-         href="#"
-         onclick="showPage('home'); return false;">
-
-        ← Back
-
-      </a>
-
-      <div class="panel">
-
-        <h2>Add your Kik</h2>
-
-        <p class="info">
-          Enter the username you want people to see.
+        <p class="subtitle">
+            Connect through your favourite social platforms
         </p>
 
-        <input
-          type="text"
-          id="kikUsername"
-          placeholder="Kik username"
-          maxlength="30"
-        >
-
-        <textarea
-          id="kikBio"
-          placeholder="Short description (optional)"
-          maxlength="150"
-        ></textarea>
-
-        <button
-          class="kik-button"
-          onclick="previewKik()">
-
-          Preview Profile
-
-        </button>
-
-        <div
-          id="kikResult"
-          class="result">
+        <div class="card kik" onclick="showPage('kikPage')">
+            <h2>🟢 Kik</h2>
+            <p>Find and share your Kik username.</p>
         </div>
 
-      </div>
+        <div class="card snapchat" onclick="showPage('snapchatPage')">
+            <h2>👻 Snapchat</h2>
+            <p>Find and share your Snapchat username.</p>
+        </div>
+
+        <div class="card instagram" onclick="showPage('instagramPage')">
+            <h2>📸 Instagram</h2>
+            <p>Find and share your Instagram username.</p>
+        </div>
+
+        <div class="card telegram" onclick="showPage('telegramPage')">
+            <h2>✈️ Telegram</h2>
+            <p>Find and share your Telegram username.</p>
+        </div>
 
     </div>
 
-  </div>
 
+    <!-- KIK -->
+    <div id="kikPage">
 
-  <!-- SNAPCHAT -->
-
-  <div id="snapchatPage">
-
-    <header>
-      <h1>👻 Snapchat</h1>
-      <p>Share your Snapchat username</p>
-    </header>
-
-    <div class="container">
-
-      <a class="back"
-         href="#"
-         onclick="showPage('home'); return false;">
-
-        ← Back
-
-      </a>
-
-      <div class="panel">
-
-        <h2>Add your Snapchat</h2>
-
-        <p class="info">
-          Enter the Snapchat username you want people to see.
-        </p>
-
-        <input
-          type="text"
-          id="snapUsername"
-          placeholder="Snapchat username"
-          maxlength="30"
-        >
-
-        <textarea
-          id="snapBio"
-          placeholder="Short description (optional)"
-          maxlength="150"
-        ></textarea>
-
-        <button
-          class="snap-button"
-          onclick="previewSnapchat()">
-
-          Preview Profile
-
-        </button>
-
-        <div
-          id="snapResult"
-          class="result">
+        <div class="back" onclick="showPage('home')">
+            ← Back
         </div>
 
-      </div>
+        <div class="panel">
 
+            <h2>🟢 Kik Profile</h2>
+
+            <p class="info">
+                Enter your Kik username. You don't need to type @.
+            </p>
+
+            <label>Kik Username</label>
+
+            <input
+                type="text"
+                id="kikUsername"
+                placeholder="example: charley"
+            >
+
+            <label>Bio (optional)</label>
+
+            <textarea
+                id="kikBio"
+                placeholder="Tell people a little about yourself..."
+            ></textarea>
+
+            <button
+                class="kik-button"
+                onclick="previewKik()"
+            >
+                Preview Profile
+            </button>
+
+            <div id="kikResult"></div>
+
+        </div>
     </div>
 
-  </div>
 
+    <!-- SNAPCHAT -->
+    <div id="snapchatPage">
 
-  <!-- INSTAGRAM -->
-
-  <div id="instagramPage">
-
-    <header>
-      <h1>📸 Instagram</h1>
-      <p>Share your Instagram username</p>
-    </header>
-
-    <div class="container">
-
-      <a class="back"
-         href="#"
-         onclick="showPage('home'); return false;">
-
-        ← Back
-
-      </a>
-
-      <div class="panel">
-
-        <h2>Add your Instagram</h2>
-
-        <p class="info">
-          Enter the Instagram username you want people to see.
-        </p>
-
-        <input
-          type="text"
-          id="instagramUsername"
-          placeholder="Instagram username"
-          maxlength="30"
-        >
-
-        <textarea
-          id="instagramBio"
-          placeholder="Short description (optional)"
-          maxlength="150"
-        ></textarea>
-
-        <button
-          class="instagram-button"
-          onclick="previewInstagram()">
-
-          Preview Profile
-
-        </button>
-
-        <div
-          id="instagramResult"
-          class="result">
+        <div class="back" onclick="showPage('home')">
+            ← Back
         </div>
 
-      </div>
+        <div class="panel">
 
+            <h2>👻 Snapchat Profile</h2>
+
+            <p class="info">
+                Enter your Snapchat username. You don't need to type @.
+            </p>
+
+            <label>Snapchat Username</label>
+
+            <input
+                type="text"
+                id="snapUsername"
+                placeholder="example: charley"
+            >
+
+            <label>Bio (optional)</label>
+
+            <textarea
+                id="snapBio"
+                placeholder="Tell people a little about yourself..."
+            ></textarea>
+
+            <button
+                class="snap-button"
+                onclick="previewSnapchat()"
+            >
+                Preview Profile
+            </button>
+
+            <div id="snapResult"></div>
+
+        </div>
     </div>
 
-  </div>
+
+    <!-- INSTAGRAM -->
+    <div id="instagramPage">
+
+        <div class="back" onclick="showPage('home')">
+            ← Back
+        </div>
+
+        <div class="panel">
+
+            <h2>📸 Instagram Profile</h2>
+
+            <p class="info">
+                Enter your Instagram username. You don't need to type @.
+            </p>
+
+            <label>Instagram Username</label>
+
+            <input
+                type="text"
+                id="instagramUsername"
+                placeholder="example: charley"
+            >
+
+            <label>Bio (optional)</label>
+
+            <textarea
+                id="instagramBio"
+                placeholder="Tell people a little about yourself..."
+            ></textarea>
+
+            <button
+                class="instagram-button"
+                onclick="previewInstagram()"
+            >
+                Preview Profile
+            </button>
+
+            <div id="instagramResult"></div>
+
+        </div>
+    </div>
 
 
-  <script>
+    <!-- TELEGRAM -->
+    <div id="telegramPage">
 
-    function showPage(page) {
+        <div class="back" onclick="showPage('home')">
+            ← Back
+        </div>
 
-      document.getElementById("home").style.display = "none";
+        <div class="panel">
 
-      document.getElementById("kikPage").style.display = "none";
+            <h2>✈️ Telegram Profile</h2>
 
-      document.getElementById("snapchatPage").style.display = "none";
+            <p class="info">
+                Enter your Telegram username. You don't need to type @.
+            </p>
 
-      document.getElementById("instagramPage").style.display = "none";
+            <label>Telegram Username</label>
 
-      document.getElementById(page).style.display = "block";
+            <input
+                type="text"
+                id="telegramUsername"
+                placeholder="example: charley"
+            >
 
-      window.scrollTo(0, 0);
-    }
+            <label>Bio (optional)</label>
+
+            <textarea
+                id="telegramBio"
+                placeholder="Tell people a little about yourself..."
+            ></textarea>
+
+            <button
+                class="telegram-button"
+                onclick="previewTelegram()"
+            >
+                Preview Profile
+            </button>
+
+            <div id="telegramResult"></div>
+
+        </div>
+    </div>
+
+</div>
 
 
-    function previewKik() {
+<script>
 
-      const username =
-        document.getElementById("kikUsername").value.trim();
+/* Show Pages */
 
-      const bio =
-        document.getElementById("kikBio").value.trim();
+function showPage(page) {
 
-      const result =
-        document.getElementById("kikResult");
+    document.getElementById("home").style.display = "none";
+    document.getElementById("kikPage").style.display = "none";
+    document.getElementById("snapchatPage").style.display = "none";
+    document.getElementById("instagramPage").style.display = "none";
+    document.getElementById("telegramPage").style.display = "none";
 
-      if (username === "") {
-        alert("Please enter a Kik username.");
+    document.getElementById(page).style.display = "block";
+
+    window.scrollTo(0, 0);
+}
+
+
+/* Clean Username */
+
+function cleanUsername(username) {
+
+    return username
+        .trim()
+        .replace(/^@+/, "");
+
+}
+
+
+/* Prevent HTML Injection */
+
+function escapeHTML(text) {
+
+    return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/* Kik */
+
+function previewKik() {
+
+    let username = cleanUsername(
+        document.getElementById("kikUsername").value
+    );
+
+    let bio = document.getElementById("kikBio").value.trim();
+
+    if (!username) {
+
+        alert("Please enter your Kik username.");
+
         return;
-      }
-
-      result.style.display = "block";
-
-      result.innerHTML =
-        "<strong>🟢 Kik</strong><br><br>" +
-        "<strong>Username:</strong> " +
-        escapeHTML(username) +
-        "<br><br>" +
-        "<strong>About:</strong><br>" +
-        (bio
-          ? escapeHTML(bio)
-          : "No description added.");
     }
 
+    document.getElementById("kikResult").innerHTML = `
 
-    function previewSnapchat() {
+        <div class="result">
 
-      const username =
-        document.getElementById("snapUsername").value.trim();
+            <h3>🟢 Kik Profile Preview</h3>
 
-      const bio =
-        document.getElementById("snapBio").value.trim();
+            <p>
+                <strong>@${escapeHTML(username)}</strong>
+            </p>
 
-      const result =
-        document.getElementById("snapResult");
+            <p>
+                ${escapeHTML(bio)}
+            </p>
 
-      if (username === "") {
-        alert("Please enter a Snapchat username.");
+            <a
+                href="https://kik.me/${encodeURIComponent(username)}"
+                target="_blank"
+            >
+                <button class="kik-button">
+                    Open Kik Profile
+                </button>
+            </a>
+
+        </div>
+    `;
+}
+
+
+/* Snapchat */
+
+function previewSnapchat() {
+
+    let username = cleanUsername(
+        document.getElementById("snapUsername").value
+    );
+
+    let bio = document.getElementById("snapBio").value.trim();
+
+    if (!username) {
+
+        alert("Please enter your Snapchat username.");
+
         return;
-      }
-
-      result.style.display = "block";
-
-      result.innerHTML =
-        "<strong>👻 Snapchat</strong><br><br>" +
-        "<strong>Username:</strong> " +
-        escapeHTML(username) +
-        "<br><br>" +
-        "<strong>About:</strong><br>" +
-        (bio
-          ? escapeHTML(bio)
-          : "No description added.");
     }
 
+    document.getElementById("snapResult").innerHTML = `
 
-    function previewInstagram() {
+        <div class="result">
 
-      const username =
-        document.getElementById("instagramUsername").value.trim();
+            <h3>👻 Snapchat Profile Preview</h3>
 
-      const bio =
-        document.getElementById("instagramBio").value.trim();
+            <p>
+                <strong>@${escapeHTML(username)}</strong>
+            </p>
 
-      const result =
-        document.getElementById("instagramResult");
+            <p>
+                ${escapeHTML(bio)}
+            </p>
 
-      if (username === "") {
-        alert("Please enter an Instagram username.");
+            <a
+                href="https://www.snapchat.com/add/${encodeURIComponent(username)}"
+                target="_blank"
+            >
+                <button class="snap-button">
+                    Open Snapchat Profile
+                </button>
+            </a>
+
+        </div>
+    `;
+}
+
+
+/* Instagram */
+
+function previewInstagram() {
+
+    let username = cleanUsername(
+        document.getElementById("instagramUsername").value
+    );
+
+    let bio = document.getElementById("instagramBio").value.trim();
+
+    if (!username) {
+
+        alert("Please enter your Instagram username.");
+
         return;
-      }
-
-      result.style.display = "block";
-
-      result.innerHTML =
-        "<strong>📸 Instagram</strong><br><br>" +
-        "<strong>Username:</strong> " +
-        escapeHTML(username) +
-        "<br><br>" +
-        "<strong>About:</strong><br>" +
-        (bio
-          ? escapeHTML(bio)
-          : "No description added.");
     }
 
+    document.getElementById("instagramResult").innerHTML = `
 
-    function escapeHTML(text) {
+        <div class="result">
 
-      const div = document.createElement("div");
+            <h3>📸 Instagram Profile Preview</h3>
 
-      div.textContent = text;
+            <p>
+                <strong>@${escapeHTML(username)}</strong>
+            </p>
 
-      return div.innerHTML;
+            <p>
+                ${escapeHTML(bio)}
+            </p>
+
+            <a
+                href="https://www.instagram.com/${encodeURIComponent(username)}/"
+                target="_blank"
+            >
+                <button class="instagram-button">
+                    Open Instagram Profile
+                </button>
+            </a>
+
+        </div>
+    `;
+}
+
+
+/* Telegram */
+
+function previewTelegram() {
+
+    let username = cleanUsername(
+        document.getElementById("telegramUsername").value
+    );
+
+    let bio = document.getElementById("telegramBio").value.trim();
+
+    if (!username) {
+
+        alert("Please enter your Telegram username.");
+
+        return;
     }
 
-  </script>
+    document.getElementById("telegramResult").innerHTML = `
+
+        <div class="result">
+
+            <h3>✈️ Telegram Profile Preview</h3>
+
+            <p>
+                <strong>@${escapeHTML(username)}</strong>
+            </p>
+
+            <p>
+                ${escapeHTML(bio)}
+            </p>
+
+            <a
+                href="https://t.me/${encodeURIComponent(username)}"
+                target="_blank"
+            >
+                <button class="telegram-button">
+                    Open Telegram Profile
+                </button>
+            </a>
+
+        </div>
+    `;
+}
+
+</script>
 
 </body>
 </html>
