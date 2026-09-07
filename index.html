@@ -1197,6 +1197,69 @@ button {
         white-space: nowrap;
     }
 }
+/* ===== DISCOVER PAGE POLISH ===== */
+
+#discover .panel {
+    overflow: hidden;
+}
+
+.filter-grid {
+    gap: 12px;
+}
+
+.filter-field label {
+    display: block;
+    margin-bottom: 7px;
+}
+
+.filter-field input,
+.filter-field select {
+    min-height: 46px;
+}
+
+.discovery-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.discovery-tabs button {
+    flex: 1;
+    min-height: 46px;
+}
+
+#discoveryResults {
+    width: 100%;
+    min-width: 0;
+}
+
+#resultsHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 600px) {
+
+    .filter-grid {
+        gap: 10px;
+    }
+
+    .discovery-tabs {
+        gap: 7px;
+    }
+
+    .discovery-tabs button {
+        font-size: 14px;
+        padding: 11px 8px;
+    }
+
+    #resultsHeader {
+        align-items: flex-start;
+    }
+}
 </style>
 </head>
 
