@@ -983,6 +983,134 @@ button:hover::after {
             maxlength="300"
             placeholder="Tell people a little about yourself..."
         ></textarea>
+        <!-- DISCOVERY INFORMATION -->
+
+<label for="profileAge">
+    Age
+</label>
+
+<input
+    type="number"
+    id="profileAge"
+    min="18"
+    max="100"
+    placeholder="18+"
+>
+
+
+<label for="profileLocation">
+    Location
+</label>
+
+<input
+    type="text"
+    id="profileLocation"
+    maxlength="100"
+    placeholder="City, province, country"
+>
+
+
+<label for="profileCategory">
+    What are you looking for?
+</label>
+
+<select
+    id="profileCategory"
+    style="
+        width:100%;
+        border:1px solid #30303a;
+        border-radius:14px;
+        outline:none;
+        padding:14px 15px;
+        background:#15151c;
+        color:white;
+        font-size:16px;
+    "
+>
+    <option value="">Choose a category</option>
+    <option value="friends">Friends</option>
+    <option value="chat">Chat</option>
+    <option value="dating">Dating</option>
+    <option value="gaming">Gaming</option>
+    <option value="cars">Cars</option>
+    <option value="music">Music</option>
+    <option value="sports">Sports</option>
+    <option value="social">Social</option>
+    <option value="other">Other</option>
+</select>
+
+
+<label>
+    Interests
+</label>
+
+<div class="interest-options profile-interest-options">
+
+    <button
+        type="button"
+        class="filter-chip profile-interest-chip"
+        onclick="toggleProfileInterest('cars', this)"
+    >
+        🚗 Cars
+    </button>
+
+    <button
+        type="button"
+        class="filter-chip profile-interest-chip"
+        onclick="toggleProfileInterest('gaming', this)"
+    >
+        🎮 Gaming
+    </button>
+
+    <button
+        type="button"
+        class="filter-chip profile-interest-chip"
+        onclick="toggleProfileInterest('music', this)"
+    >
+        🎵 Music
+    </button>
+
+    <button
+        type="button"
+        class="filter-chip profile-interest-chip"
+        onclick="toggleProfileInterest('sports', this)"
+    >
+        🏈 Sports
+    </button>
+
+    <button
+        type="button"
+        class="filter-chip profile-interest-chip"
+        onclick="toggleProfileInterest('travel', this)"
+    >
+        ✈️ Travel
+    </button>
+
+    <button
+        type="button"
+        class="filter-chip profile-interest-chip"
+        onclick="toggleProfileInterest('fitness', this)"
+    >
+        💪 Fitness
+    </button>
+
+    <button
+        type="button"
+        class="filter-chip profile-interest-chip"
+        onclick="toggleProfileInterest('anime', this)"
+    >
+        🍥 Anime
+    </button>
+
+    <button
+        type="button"
+        class="filter-chip profile-interest-chip"
+        onclick="toggleProfileInterest('memes', this)"
+    >
+        😂 Memes
+    </button>
+
+</div>
 
 
         <!-- SOCIAL ACCOUNTS -->
@@ -1043,6 +1171,7 @@ button:hover::after {
 </div>
 
 
+
 <!-- ================= DISCOVER ================= -->
 
 <div id="discoverPage">
@@ -1053,16 +1182,375 @@ button:hover::after {
 
     <div class="panel">
 
-        <h2>Discover Profiles</h2>
+        <h2>Discover</h2>
 
         <p class="info">
-            Find people on Social Hub and explore their social platforms.
+            Find people and group chats that match what you're looking for.
         </p>
 
-        <div id="discoverResults">
-            <p class="info">
-                Loading profiles...
-            </p>
+        <!-- PEOPLE / GROUPS -->
+
+        <div class="discovery-tabs">
+
+            <button
+                type="button"
+                class="discovery-tab active"
+                data-mode="people"
+                onclick="socialPromoterDiscovery.setMode('people')"
+            >
+                👤 People
+            </button>
+
+            <button
+                type="button"
+                class="discovery-tab"
+                data-mode="groups"
+                onclick="socialPromoterDiscovery.setMode('groups')"
+            >
+                👥 Group Chats
+            </button>
+
+        </div>
+
+
+        <!-- FILTERS -->
+
+        <div class="discovery-filters">
+
+            <div
+                class="filter-title"
+                id="discoveryFilterTitle"
+            >
+                Find People
+            </div>
+
+
+            <form
+                id="discoveryFilters"
+                onsubmit="event.preventDefault(); runDiscoverySearch();"
+            >
+
+                <div class="filter-grid">
+
+
+                    <!-- SEARCH -->
+
+                    <div class="filter-field full">
+
+                        <label for="discoverySearch">
+                            Search
+                        </label>
+
+                        <input
+                            id="discoverySearch"
+                            type="search"
+                            placeholder="Search profiles, interests, groups..."
+                            autocomplete="off"
+                        >
+
+                    </div>
+
+
+                    <!-- PLATFORM -->
+
+                    <div class="filter-field">
+
+                        <label for="discoveryPlatform">
+                            Platform
+                        </label>
+
+                        <select id="discoveryPlatform">
+
+                            <option value="">
+                                Any platform
+                            </option>
+
+                            <option value="snapchat">
+                                👻 Snapchat
+                            </option>
+
+                            <option value="instagram">
+                                📸 Instagram
+                            </option>
+
+                            <option value="telegram">
+                                ✈️ Telegram
+                            </option>
+
+                            <option value="kik">
+                                🟢 Kik
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- LOCATION -->
+
+                    <div class="filter-field">
+
+                        <label for="discoveryLocation">
+                            Location
+                        </label>
+
+                        <input
+                            id="discoveryLocation"
+                            type="text"
+                            placeholder="City, province, country"
+                        >
+
+                    </div>
+
+
+                    <!-- MIN AGE -->
+
+                    <div class="filter-field">
+
+                        <label for="discoveryMinAge">
+                            Minimum age
+                        </label>
+
+                        <input
+                            id="discoveryMinAge"
+                            type="number"
+                            min="18"
+                            max="100"
+                            placeholder="18"
+                        >
+
+                    </div>
+
+
+                    <!-- MAX AGE -->
+
+                    <div class="filter-field">
+
+                        <label for="discoveryMaxAge">
+                            Maximum age
+                        </label>
+
+                        <input
+                            id="discoveryMaxAge"
+                            type="number"
+                            min="18"
+                            max="100"
+                            placeholder="100"
+                        >
+
+                    </div>
+
+
+                    <!-- CATEGORY -->
+
+                    <div class="filter-field full">
+
+                        <label for="discoveryCategory">
+                            Category
+                        </label>
+
+                        <select id="discoveryCategory">
+
+                            <option value="">
+                                Any category
+                            </option>
+
+                            <option value="friends">
+                                Friends
+                            </option>
+
+                            <option value="chat">
+                                Chat
+                            </option>
+
+                            <option value="dating">
+                                Dating
+                            </option>
+
+                            <option value="gaming">
+                                Gaming
+                            </option>
+
+                            <option value="cars">
+                                Cars
+                            </option>
+
+                            <option value="music">
+                                Music
+                            </option>
+
+                            <option value="sports">
+                                Sports
+                            </option>
+
+                            <option value="social">
+                                Social
+                            </option>
+
+                            <option value="other">
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- INTERESTS -->
+
+                    <div class="filter-field full">
+
+                        <label>
+                            Interests
+                        </label>
+
+                        <div class="interest-options">
+
+
+                            <button
+                                type="button"
+                                class="filter-chip"
+                                onclick="socialPromoterDiscovery.toggleInterest('cars', this)"
+                            >
+                                🚗 Cars
+                            </button>
+
+
+                            <button
+                                type="button"
+                                class="filter-chip"
+                                onclick="socialPromoterDiscovery.toggleInterest('gaming', this)"
+                            >
+                                🎮 Gaming
+                            </button>
+
+
+                            <button
+                                type="button"
+                                class="filter-chip"
+                                onclick="socialPromoterDiscovery.toggleInterest('music', this)"
+                            >
+                                🎵 Music
+                            </button>
+
+
+                            <button
+                                type="button"
+                                class="filter-chip"
+                                onclick="socialPromoterDiscovery.toggleInterest('sports', this)"
+                            >
+                                🏈 Sports
+                            </button>
+
+
+                            <button
+                                type="button"
+                                class="filter-chip"
+                                onclick="socialPromoterDiscovery.toggleInterest('travel', this)"
+                            >
+                                ✈️ Travel
+                            </button>
+
+
+                            <button
+                                type="button"
+                                class="filter-chip"
+                                onclick="socialPromoterDiscovery.toggleInterest('fitness', this)"
+                            >
+                                💪 Fitness
+                            </button>
+
+
+                            <button
+                                type="button"
+                                class="filter-chip"
+                                onclick="socialPromoterDiscovery.toggleInterest('anime', this)"
+                            >
+                                🍥 Anime
+                            </button>
+
+
+                            <button
+                                type="button"
+                                class="filter-chip"
+                                onclick="socialPromoterDiscovery.toggleInterest('memes', this)"
+                            >
+                                😂 Memes
+                            </button>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- BUTTONS -->
+
+                <div class="filter-actions">
+
+                    <button
+                        type="submit"
+                        class="apply-filters"
+                    >
+                        🔎 Find
+                    </button>
+
+                    <button
+                        type="button"
+                        class="clear-filters"
+                        onclick="socialPromoterDiscovery.clear()"
+                    >
+                        Clear
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+
+        <!-- RESULTS -->
+
+        <div class="discovery-results-header">
+
+            <div class="results-title">
+                Discover
+            </div>
+
+            <div
+                class="results-count"
+                id="discoveryResultsCount"
+            >
+                Ready to search
+            </div>
+
+        </div>
+
+
+        <div
+            class="discovery-results"
+            id="discoveryResults"
+        >
+
+            <div class="empty-results">
+
+                <div style="font-size:32px;margin-bottom:8px;">
+                    🔎
+                </div>
+
+                <strong style="color:#aaa;">
+                    Find exactly what you're looking for
+                </strong>
+
+                <div style="margin-top:6px;">
+                    Choose your filters and hit Find.
+                </div>
+
+            </div>
+
         </div>
 
     </div>
@@ -1605,6 +2093,32 @@ async function uploadAvatar(file) {
    CREATE PROFILE
    ========================================================= */
 
+// ================= PROFILE INTERESTS =================
+
+window.socialPromoterProfileInterests = [];
+
+function toggleProfileInterest(value, button) {
+
+    const interests =
+        window.socialPromoterProfileInterests;
+
+    const index =
+        interests.indexOf(value);
+
+    if (index === -1) {
+
+        interests.push(value);
+
+        button.classList.add("active");
+
+    } else {
+
+        interests.splice(index, 1);
+
+        button.classList.remove("active");
+
+    }
+}
 async function createProfile() {
 
     const displayName =
@@ -1618,6 +2132,30 @@ async function createProfile() {
             .getElementById("profileBio")
             .value
             .trim();
+                const ageValue =
+        document
+            .getElementById("profileAge")
+            .value
+            .trim();
+
+    const age =
+        ageValue
+            ? Number(ageValue)
+            : null;
+
+    const location =
+        document
+            .getElementById("profileLocation")
+            .value
+            .trim();
+
+    const category =
+        document
+            .getElementById("profileCategory")
+            .value;
+
+    const interests =
+        window.socialPromoterProfileInterests || [];
 
     const kik =
         cleanUsername(
@@ -1707,14 +2245,26 @@ async function createProfile() {
 
         const profile = {
 
-            display_name:
-                displayName,
+    display_name:
+        displayName,
 
-            bio:
-                bio,
+    bio:
+        bio,
 
-            kik:
-                kik,
+    age:
+        age,
+
+    location:
+        location,
+
+    category:
+        category,
+
+    interests:
+        interests,
+
+    kik:
+        kik,
 
             snapchat:
                 snapchat,
@@ -1793,6 +2343,15 @@ async function createProfile() {
    ========================================================= */
 
 function resetCreateForm() {
+    
+        // Reset selected profile interests
+    window.socialPromoterProfileInterests = [];
+
+    document
+        .querySelectorAll(".profile-interest-chip")
+        .forEach(button => {
+            button.classList.remove("active");
+        });
 
     document.getElementById("displayName").value = "";
     document.getElementById("profileBio").value = "";
@@ -1960,9 +2519,26 @@ function profileCard(profile) {
             "No bio yet."
         );
 
+    const location =
+        escapeHTML(
+            profile.location ||
+            ""
+        );
+
+    const category =
+        escapeHTML(
+            profile.category
+                ? profile.category.charAt(0).toUpperCase() +
+                  profile.category.slice(1)
+                : ""
+        );
+
+    const age =
+        profile.age
+            ? `${profile.age} years old`
+            : "";
 
     let avatarHTML = "";
-
 
     if (profile.avatar_url) {
 
@@ -2000,45 +2576,56 @@ function profileCard(profile) {
         `;
     }
 
+    const interestLabels = {
+        cars: "🚗 Cars",
+        gaming: "🎮 Gaming",
+        music: "🎵 Music",
+        sports: "🏈 Sports",
+        travel: "✈️ Travel",
+        fitness: "💪 Fitness",
+        anime: "🍥 Anime",
+        memes: "😂 Memes"
+    };
+
+    const interests =
+        Array.isArray(profile.interests)
+            ? profile.interests
+            : [];
+
+    const interestHTML =
+        interests
+            .map(interest => {
+
+                const label =
+                    interestLabels[interest] ||
+                    interest;
+
+                return `
+                    <span class="profile-interest">
+                        ${escapeHTML(label)}
+                    </span>
+                `;
+
+            })
+            .join("");
 
     let links = "";
 
-
     if (profile.kik) {
-
-        links += socialLink(
-            "kik",
-            profile.kik
-        );
+        links += socialLink("kik", profile.kik);
     }
-
 
     if (profile.snapchat) {
-
-        links += socialLink(
-            "snapchat",
-            profile.snapchat
-        );
+        links += socialLink("snapchat", profile.snapchat);
     }
-
 
     if (profile.instagram) {
-
-        links += socialLink(
-            "instagram",
-            profile.instagram
-        );
+        links += socialLink("instagram", profile.instagram);
     }
-
 
     if (profile.telegram) {
-
-        links += socialLink(
-            "telegram",
-            profile.telegram
-        );
+        links += socialLink("telegram", profile.telegram);
     }
-
 
     return `
 
@@ -2050,9 +2637,51 @@ function profileCard(profile) {
                 ${name}
             </h3>
 
+            ${
+                age || location
+                    ? `
+                        <div class="profile-meta">
+
+                            ${
+                                age
+                                    ? `<span>🎂 ${age}</span>`
+                                    : ""
+                            }
+
+                            ${
+                                location
+                                    ? `<span>📍 ${location}</span>`
+                                    : ""
+                            }
+
+                        </div>
+                    `
+                    : ""
+            }
+
+            ${
+                category
+                    ? `
+                        <div class="profile-category">
+                            ${category}
+                        </div>
+                    `
+                    : ""
+            }
+
             <p class="profile-bio">
                 ${bio}
             </p>
+
+            ${
+                interestHTML
+                    ? `
+                        <div class="profile-interests">
+                            ${interestHTML}
+                        </div>
+                    `
+                    : ""
+            }
 
             ${links}
 
@@ -2066,17 +2695,290 @@ function profileCard(profile) {
    LOAD DISCOVER PROFILES
    ========================================================= */
 
+// ================= DISCOVERY SEARCH =================
+
 async function loadDiscoverProfiles() {
 
-    const container =
-        document.getElementById(
-            "discoverResults"
+    await runDiscoverySearch();
+
+}
+
+async function runDiscoverySearch() {
+    
+        socialPromoterDiscovery.syncFilters();
+
+    const results =
+        document.getElementById("discoveryResults");
+
+    const count =
+        document.getElementById("discoveryResultsCount");
+
+    if (!results) return;
+
+    results.innerHTML = `
+        <div class="empty-results">
+            <div style="font-size:32px;margin-bottom:8px;">
+                🔎
+            </div>
+            <strong style="color:#aaa;">
+                Searching...
+            </strong>
+        </div>
+    `;
+
+    const search =
+        document
+            .getElementById("discoverySearch")
+            .value
+            .trim()
+            .toLowerCase();
+
+    const platform =
+        document
+            .getElementById("discoveryPlatform")
+            .value;
+
+    const location =
+        document
+            .getElementById("discoveryLocation")
+            .value
+            .trim()
+            .toLowerCase();
+
+    const minAgeValue =
+        document
+            .getElementById("discoveryMinAge")
+            .value
+            .trim();
+
+    const maxAgeValue =
+        document
+            .getElementById("discoveryMaxAge")
+            .value
+            .trim();
+
+    const category =
+        document
+            .getElementById("discoveryCategory")
+            .value;
+
+    const minAge =
+        minAgeValue
+            ? Number(minAgeValue)
+            : null;
+
+    const maxAge =
+        maxAgeValue
+            ? Number(maxAgeValue)
+            : null;
+
+    const selectedInterests =
+        socialPromoterDiscovery.filters.interests || [];
+
+    let query =
+        supabaseClient
+            .from("profiles")
+            .select("*")
+            .order("display_name", {
+                ascending: true
+            });
+
+    // Platform filter
+    if (platform) {
+
+        query = query.not(
+            platform,
+            "is",
+            null
         );
 
+        query = query.neq(
+            platform,
+            ""
+        );
+    }
 
-    if (!container) {
+    // Age filters
+    if (minAge !== null && !Number.isNaN(minAge)) {
+
+        query = query.gte(
+            "age",
+            minAge
+        );
+    }
+
+    if (maxAge !== null && !Number.isNaN(maxAge)) {
+
+        query = query.lte(
+            "age",
+            maxAge
+        );
+    }
+
+    // Category filter
+    if (category) {
+
+        query = query.eq(
+            "category",
+            category
+        );
+    }
+
+    const { data, error } =
+        await query;
+
+    if (error) {
+
+        console.error(
+            "Discovery search error:",
+            error
+        );
+
+        results.innerHTML = `
+            <div class="empty-results">
+                <div style="font-size:32px;margin-bottom:8px;">
+                    ⚠️
+                </div>
+
+                <strong style="color:#aaa;">
+                    Something went wrong
+                </strong>
+
+                <div style="margin-top:6px;">
+                    We couldn't load profiles right now.
+                </div>
+            </div>
+        `;
+
+        if (count) {
+            count.textContent =
+                "Search error";
+        }
+
         return;
     }
+
+    let profiles =
+        data || [];
+
+    // Search, location, and interests
+    profiles =
+        profiles.filter(profile => {
+
+            const name =
+                String(
+                    profile.display_name || ""
+                ).toLowerCase();
+
+            const bio =
+                String(
+                    profile.bio || ""
+                ).toLowerCase();
+
+            const profileLocation =
+                String(
+                    profile.location || ""
+                ).toLowerCase();
+
+            const profileCategory =
+                String(
+                    profile.category || ""
+                ).toLowerCase();
+
+            const profileInterests =
+                Array.isArray(profile.interests)
+                    ? profile.interests
+                    : [];
+
+            const profileInterestText =
+                profileInterests
+                    .join(" ")
+                    .toLowerCase();
+
+            // General search
+            if (
+                search &&
+                !name.includes(search) &&
+                !bio.includes(search) &&
+                !profileLocation.includes(search) &&
+                !profileCategory.includes(search) &&
+                !profileInterestText.includes(search)
+            ) {
+                return false;
+            }
+
+            // Location
+            if (
+                location &&
+                !profileLocation.includes(location)
+            ) {
+                return false;
+            }
+
+            // Selected interests
+            if (
+                selectedInterests.length > 0
+            ) {
+
+                const hasInterest =
+                    selectedInterests.some(
+                        interest =>
+                            profileInterests
+                                .map(item =>
+                                    String(item).toLowerCase()
+                                )
+                                .includes(
+                                    interest.toLowerCase()
+                                )
+                    );
+
+                if (!hasInterest) {
+                    return false;
+                }
+            }
+
+            return true;
+        });
+
+    // Display results
+    if (profiles.length === 0) {
+
+        results.innerHTML = `
+            <div class="empty-results">
+                <div style="font-size:32px;margin-bottom:8px;">
+                    😕
+                </div>
+
+                <strong style="color:#aaa;">
+                    No matches found
+                </strong>
+
+                <div style="margin-top:6px;">
+                    Try changing your filters.
+                </div>
+            </div>
+        `;
+
+    } else {
+
+        results.innerHTML =
+            profiles
+                .map(profile =>
+                    profileCard(profile)
+                )
+                .join("");
+    }
+
+    if (count) {
+
+        count.textContent =
+            `${profiles.length} ${
+                profiles.length === 1
+                    ? "match"
+                    : "matches"
+            }`;
+    }
+}
 
 
     container.innerHTML = `
@@ -2198,5 +3100,418 @@ document.addEventListener(
 
 </div>
 
+<!-- =========================================================
+     SOCIAL PROMOTER — PEOPLE & GROUP DISCOVERY
+     ========================================================= -->
+
+/* ================= DISCOVERY PROFILE DETAILS ================= */
+
+.profile-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 8px 0;
+    color: #999;
+    font-size: 13px;
+}
+
+.profile-meta span {
+    background: #111118;
+    border: 1px solid #292933;
+    border-radius: 999px;
+    padding: 6px 9px;
+}
+
+.profile-category {
+    display: inline-block;
+    margin: 4px 0 10px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: #1c1c27;
+    border: 1px solid #343444;
+    color: #ddd;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.profile-interests {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin: 12px 0;
+}
+
+.profile-interest {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 9px;
+    border-radius: 999px;
+    background: #14141c;
+    border: 1px solid #2c2c38;
+    color: #cfcfd8;
+    font-size: 12px;
+}
+
+.profile-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.profile-card .profile-name {
+    margin-bottom: 4px;
+}
+
+.profile-card .profile-bio {
+    line-height: 1.5;
+}
+
+@media (max-width: 600px) {
+
+    .profile-meta {
+        gap: 6px;
+    }
+
+    .profile-meta span {
+        font-size: 12px;
+        padding: 5px 8px;
+    }
+
+    .profile-interest {
+        font-size: 11px;
+        padding: 5px 8px;
+    }
+}
+<style>
+  /* Discovery controls */
+  .discovery-section {
+    margin-top: 24px;
+  }
+
+  .discovery-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .discovery-tab {
+    flex: 1;
+    border: 1px solid rgba(255,255,255,.10);
+    background: #17171d;
+    color: #aaa;
+    border-radius: 14px;
+    padding: 13px 16px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: .2s ease;
+  }
+
+  .discovery-tab.active {
+    color: white;
+    background: linear-gradient(135deg, #24242d, #18181f);
+    border-color: rgba(255,255,255,.22);
+    box-shadow: 0 6px 20px rgba(0,0,0,.25);
+  }
+
+  .discovery-filters {
+    background: #111116;
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 18px;
+    padding: 18px;
+    margin-bottom: 20px;
+  }
+
+  .filter-title {
+    color: white;
+    font-size: 18px;
+    font-weight: 800;
+    margin-bottom: 14px;
+  }
+
+  .filter-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .filter-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .filter-field.full {
+    grid-column: 1 / -1;
+  }
+
+  .filter-field label {
+    color: #999;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .filter-field input,
+  .filter-field select {
+    width: 100%;
+    box-sizing: border-box;
+    background: #19191f;
+    color: white;
+    border: 1px solid rgba(255,255,255,.09);
+    border-radius: 11px;
+    padding: 12px;
+    outline: none;
+  }
+
+  .filter-field input:focus,
+  .filter-field select:focus {
+    border-color: rgba(255,255,255,.28);
+  }
+
+  .platform-options,
+  .interest-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .filter-chip {
+    border: 1px solid rgba(255,255,255,.10);
+    background: #19191f;
+    color: #aaa;
+    border-radius: 999px;
+    padding: 9px 12px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 700;
+    transition: .2s ease;
+  }
+
+  .filter-chip.active {
+    color: white;
+    background: #292932;
+    border-color: rgba(255,255,255,.25);
+  }
+
+  .filter-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+  }
+
+  .filter-actions button {
+    flex: 1;
+    border: 0;
+    border-radius: 12px;
+    padding: 12px;
+    font-weight: 800;
+    cursor: pointer;
+  }
+
+  .apply-filters {
+    background: white;
+    color: #08080c;
+  }
+
+  .clear-filters {
+    background: #202027;
+    color: white;
+  }
+
+  .discovery-results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+
+  .results-title {
+    color: white;
+    font-size: 17px;
+    font-weight: 800;
+  }
+
+  .results-count {
+    color: #888;
+    font-size: 13px;
+  }
+
+  .discovery-results {
+    display: grid;
+    gap: 12px;
+  }
+
+  .discovery-card {
+    background: #17171d;
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 18px;
+    padding: 16px;
+  }
+
+  .discovery-card h3 {
+    color: white;
+    margin: 0 0 5px;
+    font-size: 17px;
+  }
+
+  .discovery-card p {
+    color: #999;
+    margin: 5px 0;
+    line-height: 1.45;
+    font-size: 14px;
+  }
+
+  .discovery-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-top: 10px;
+  }
+
+  .discovery-badge {
+    background: #222229;
+    color: #bbb;
+    border-radius: 999px;
+    padding: 6px 9px;
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  .empty-results {
+    text-align: center;
+    padding: 28px 18px;
+    color: #777;
+    background: #111116;
+    border-radius: 18px;
+    border: 1px solid rgba(255,255,255,.06);
+  }
+
+  @media (max-width: 600px) {
+    .filter-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .filter-field.full {
+      grid-column: auto;
+    }
+  }
+</style>
+
+<script>
+  /*
+   * Discovery foundation.
+   * This does NOT replace your existing profile system.
+   * It gives us the People / Groups filtering interface
+   * that we'll connect to Supabase in the next chunks.
+   */
+
+  window.socialPromoterDiscovery = {
+    mode: "people",
+
+    filters: {
+      search: "",
+      platform: "",
+      location: "",
+      minAge: "",
+      maxAge: "",
+      category: "",
+      interests: []
+    },
+    
+        syncFilters() {
+
+        this.filters.search =
+            document
+                .getElementById("discoverySearch")
+                .value
+                .trim();
+
+        this.filters.platform =
+            document
+                .getElementById("discoveryPlatform")
+                .value;
+
+        this.filters.location =
+            document
+                .getElementById("discoveryLocation")
+                .value
+                .trim();
+
+        this.filters.minAge =
+            document
+                .getElementById("discoveryMinAge")
+                .value
+                .trim();
+
+        this.filters.maxAge =
+            document
+                .getElementById("discoveryMaxAge")
+                .value
+                .trim();
+
+        this.filters.category =
+            document
+                .getElementById("discoveryCategory")
+                .value;
+    },
+
+    setMode(mode) {
+      this.mode = mode;
+
+      document.querySelectorAll(".discovery-tab").forEach(tab => {
+        tab.classList.toggle(
+          "active",
+          tab.dataset.mode === mode
+        );
+      });
+
+      const title = document.getElementById("discoveryFilterTitle");
+
+      if (title) {
+        title.textContent =
+          mode === "groups"
+            ? "Find Group Chats"
+            : "Find People";
+      }
+    },
+
+    toggleInterest(value, button) {
+      const index = this.filters.interests.indexOf(value);
+
+      if (index === -1) {
+        this.filters.interests.push(value);
+        button.classList.add("active");
+      } else {
+        this.filters.interests.splice(index, 1);
+        button.classList.remove("active");
+      }
+    },
+
+    clear() {
+      this.filters = {
+        search: "",
+        platform: "",
+        location: "",
+        minAge: "",
+        maxAge: "",
+        category: "",
+        interests: []
+      };
+
+      const form = document.getElementById("discoveryFilters");
+
+      if (form) {
+        form.reset();
+      }
+
+      document.querySelectorAll(".filter-chip").forEach(chip => {
+        chip.classList.remove("active");
+      });
+    }
+  };
+</script>
+
+<!-- Discovery UI will be inserted into the appropriate page
+     after the existing site navigation is connected. -->
 </body>
 </html>
