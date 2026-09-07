@@ -1455,6 +1455,64 @@ input[type="file"]::file-selector-button {
         padding: 9px 10px;
     }
 }
+/* ===== BUTTON POLISH ===== */
+
+button {
+    border: 0;
+    cursor: pointer;
+    transition:
+        transform .18s ease,
+        box-shadow .18s ease,
+        opacity .18s ease,
+        background .18s ease;
+}
+
+button:hover {
+    transform: translateY(-1px);
+}
+
+button:active {
+    transform: translateY(1px) scale(.99);
+}
+
+button:focus-visible {
+    outline: none;
+    box-shadow:
+        0 0 0 3px rgba(139,124,255,.18);
+}
+
+.primary-btn,
+.btn-primary {
+    box-shadow:
+        0 8px 24px rgba(0,0,0,.18);
+}
+
+.primary-btn:hover,
+.btn-primary:hover {
+    box-shadow:
+        0 12px 30px rgba(0,0,0,.28);
+}
+
+.secondary-btn,
+.btn-secondary {
+    box-shadow:
+        0 6px 18px rgba(0,0,0,.12);
+}
+
+@media (max-width: 600px) {
+
+    button {
+        min-height: 48px;
+        border-radius: 14px;
+    }
+
+    .primary-btn,
+    .btn-primary,
+    .secondary-btn,
+    .btn-secondary {
+        width: 100%;
+    }
+}
 </style>
 </head>
 
