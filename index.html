@@ -1119,6 +1119,84 @@ button {
         max-width: 72px;
     }
 }
+/* ===== PROFILE CARD POLISH ===== */
+.profile-card {
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+}
+.profile-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255,255,255,.13);
+    box-shadow:
+        0 18px 45px rgba(0,0,0,.32),
+        0 0 0 1px rgba(139,124,255,.08);
+}
+.profile-avatar,
+.profile-avatar-placeholder {
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+.profile-card:hover .profile-avatar,
+.profile-card:hover .profile-avatar-placeholder {
+    transform: scale(1.025);
+}
+.profile-name {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+.profile-bio {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+.profile-interests {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+}
+.social-links {
+    width: 100%;
+}
+.social-link {
+    min-width: 0;
+}
+.social-name,
+.social-handle {
+    min-width: 0;
+}
+@media (max-width: 600px) {
+    .profile-card {
+        padding: 18px;
+        border-radius: 20px;
+    }
+    .profile-avatar,
+    .profile-avatar-placeholder {
+        width: 90px;
+        height: 90px;
+    }
+    .profile-avatar-placeholder {
+        font-size: 34px;
+    }
+    .profile-name {
+        font-size: 20px;
+    }
+    .profile-bio {
+        font-size: 14px;
+        line-height: 1.55;
+    }
+    .social-link {
+        min-height: 52px;
+        padding: 11px 12px;
+    }
+    .social-handle {
+        max-width: 40%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}
 </style>
 </head>
 
