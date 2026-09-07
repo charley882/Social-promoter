@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#08080c">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
 <title>Social Hub</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -23,15 +26,16 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
     color: #fff;
     background:
-        radial-gradient(circle at 50% -10%, rgba(90, 70, 160, .25), transparent 35%),
-        radial-gradient(circle at 0% 40%, rgba(0, 200, 83, .08), transparent 30%),
-        radial-gradient(circle at 100% 65%, rgba(34, 158, 217, .08), transparent 30%),
+        radial-gradient(circle at 50% -15%, rgba(139,124,255,.20), transparent 34%),
+        radial-gradient(circle at -10% 45%, rgba(0,200,83,.06), transparent 28%),
+        radial-gradient(circle at 110% 60%, rgba(34,158,217,.07), transparent 28%),
         #08080c;
 }
 
 button,
 input,
-textarea {
+textarea,
+select {
     font-family: inherit;
 }
 
@@ -47,7 +51,7 @@ a {
     width: 100%;
     max-width: 680px;
     margin: 0 auto;
-    padding: 18px 15px 60px;
+    padding: 14px 15px 60px;
 }
 
 /* ================= HEADER ================= */
@@ -58,6 +62,8 @@ a {
 }
 
 .brand-icon {
+    position: relative;
+    overflow: hidden;
     width: 64px;
     height: 64px;
     margin: 0 auto 13px;
@@ -70,14 +76,38 @@ a {
         linear-gradient(135deg, #ffffff 0%, #bdb7ff 45%, #6d5dfc 100%);
     color: #0a0a0e;
     box-shadow:
-        0 12px 35px rgba(109, 93, 252, .28),
+        0 12px 35px rgba(109,93,252,.28),
         inset 0 1px 0 rgba(255,255,255,.8);
+    animation: brandFloat 4s ease-in-out infinite;
+}
+
+.brand-icon::after {
+    content: "";
+    position: absolute;
+    inset: -40%;
+    background: linear-gradient(
+        115deg,
+        transparent 35%,
+        rgba(255,255,255,.55) 50%,
+        transparent 65%
+    );
+    transform: translateX(-120%) rotate(12deg);
+    animation: shine 5s ease-in-out infinite;
 }
 
 .brand h1 {
     margin: 0;
     font-size: 34px;
     letter-spacing: -1px;
+    background: linear-gradient(
+        135deg,
+        #ffffff 0%,
+        #d8d4ff 45%,
+        #8b7cff 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .brand p {
@@ -96,6 +126,17 @@ a {
     display: block;
 }
 
+/* ================= SECTION LABELS ================= */
+
+.section-label {
+    margin: 25px 3px 11px;
+    color: #858392;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+}
+
 /* ================= CARDS ================= */
 
 .card {
@@ -104,7 +145,12 @@ a {
     margin-bottom: 14px;
     padding: 21px;
     border-radius: 22px;
-    background: rgba(20, 20, 27, .88);
+    background:
+        linear-gradient(
+            145deg,
+            rgba(25,25,34,.94),
+            rgba(15,15,21,.94)
+        );
     border: 1px solid rgba(255,255,255,.07);
     box-shadow:
         0 12px 35px rgba(0,0,0,.25),
@@ -114,6 +160,8 @@ a {
         transform .18s ease,
         border-color .18s ease,
         box-shadow .18s ease;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
 }
 
 .card::before {
@@ -126,13 +174,16 @@ a {
     background: var(--accent, #777);
 }
 
-.card:active {
-    transform: scale(.985);
-}
-
 .card:hover {
     transform: translateY(-2px);
     border-color: rgba(255,255,255,.13);
+    box-shadow:
+        0 18px 45px rgba(0,0,0,.32),
+        0 0 0 1px rgba(139,124,255,.08);
+}
+
+.card:active {
+    transform: scale(.985);
 }
 
 .card-content {
@@ -151,6 +202,9 @@ a {
     border-radius: 17px;
     background: rgba(255,255,255,.08);
     font-size: 27px;
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.08),
+        0 8px 20px rgba(0,0,0,.18);
 }
 
 .card-text {
@@ -168,8 +222,6 @@ a {
     line-height: 1.4;
     font-size: 14px;
 }
-
-/* Platform colors */
 
 .create-card {
     --accent: #8b7cff;
@@ -195,27 +247,23 @@ a {
     --accent: #229ed9;
 }
 
-/* ================= SECTION HEADINGS ================= */
-
-.section-label {
-    margin: 25px 3px 11px;
-    color: #777784;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
-}
-
 /* ================= PANELS ================= */
 
 .panel {
     padding: 22px;
     border-radius: 24px;
-    background: rgba(20,20,27,.9);
+    background:
+        linear-gradient(
+            145deg,
+            rgba(25,25,34,.95),
+            rgba(15,15,21,.95)
+        );
     border: 1px solid rgba(255,255,255,.07);
     box-shadow:
         0 15px 45px rgba(0,0,0,.28),
         inset 0 1px 0 rgba(255,255,255,.025);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
 }
 
 .panel h2 {
@@ -231,7 +279,7 @@ a {
     line-height: 1.55;
 }
 
-/* ================= BACK BUTTON ================= */
+/* ================= BACK ================= */
 
 .back {
     display: inline-flex;
@@ -259,7 +307,8 @@ label {
 }
 
 input,
-textarea {
+textarea,
+select {
     width: 100%;
     border: 1px solid #30303a;
     border-radius: 14px;
@@ -280,15 +329,23 @@ textarea::placeholder {
 }
 
 input:focus,
-textarea:focus {
+textarea:focus,
+select:focus {
     background: #181820;
-    border-color: #686474;
-    box-shadow: 0 0 0 3px rgba(139,124,255,.10);
+    border-color: #8b7cff;
+    box-shadow:
+        0 0 0 3px rgba(139,124,255,.11),
+        0 8px 25px rgba(0,0,0,.15);
 }
 
 textarea {
     min-height: 110px;
     resize: vertical;
+}
+
+select {
+    appearance: none;
+    -webkit-appearance: none;
 }
 
 /* ================= BUTTONS ================= */
@@ -317,10 +374,18 @@ button:hover {
     filter: brightness(1.06);
 }
 
+button:disabled {
+    opacity: .6;
+    cursor: wait;
+}
+
 .primary-button {
     color: white;
-    background: linear-gradient(135deg, #8b7cff, #6757ed);
-    box-shadow: 0 8px 25px rgba(103,87,237,.22);
+    background:
+        linear-gradient(135deg, #9b8cff, #6757ed);
+    box-shadow:
+        0 10px 30px rgba(103,87,237,.25),
+        inset 0 1px 0 rgba(255,255,255,.18);
 }
 
 .kik-button {
@@ -347,7 +412,7 @@ button:hover {
     box-shadow: 0 8px 22px rgba(34,158,217,.15);
 }
 
-/* ================= PROFILE PHOTO ================= */
+/* ================= AVATAR ================= */
 
 .avatar-upload {
     text-align: center;
@@ -365,7 +430,9 @@ button:hover {
     justify-content: center;
     background: #15151c;
     border: 3px solid #383843;
-    box-shadow: 0 12px 30px rgba(0,0,0,.4);
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.35),
+        0 0 0 1px rgba(255,255,255,.04);
 }
 
 .avatar-preview img {
@@ -391,73 +458,170 @@ button:hover {
     font-size: 14px;
 }
 
-/* ================= PROFILE RESULTS ================= */
+/* ================= INTERESTS ================= */
 
-.result {
-    position: relative;
-    overflow: hidden;
-    margin-top: 20px;
-    padding: 20px;
-    border-radius: 20px;
-    background: linear-gradient(145deg,#24242d,#15151b);
-    border: 1px solid #373741;
-}
-
-.result::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    height: 3px;
-    background: linear-gradient(
-        90deg,
-        #00c853,
-        #fffc00,
-        #ff2d75,
-        #229ed9
-    );
-}
-
-.result h2 {
-    margin: 4px 0 7px;
-    font-size: 23px;
-}
-
-.result h3 {
-    margin: 20px 0 9px;
-    font-size: 15px;
-}
-
-.result p {
-    color: #c5c5cd;
-    line-height: 1.55;
-}
-
-/* ================= SOCIAL LINKS ================= */
-
-.social-link {
+.interest-options {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 48px;
-    margin-top: 10px;
-    padding: 12px 15px;
-    border-radius: 13px;
-    text-decoration: none;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.filter-chip {
+    width: auto;
+    min-height: 0;
+    margin: 0;
+    padding: 9px 12px;
+    border: 1px solid rgba(255,255,255,.10);
+    border-radius: 999px;
+    background: #19191f;
+    color: #aaa;
+    font-size: 13px;
     font-weight: 700;
-    transition: transform .15s ease, filter .15s ease;
 }
 
-.social-link:active {
-    transform: scale(.98);
+.filter-chip.active {
+    color: white;
+    background: #292932;
+    border-color: rgba(139,124,255,.65);
+    box-shadow: 0 5px 15px rgba(0,0,0,.2);
 }
 
-.social-icon {
-    margin-right: 8px;
+/* ================= DISCOVERY ================= */
+
+.discovery-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
 }
 
-/* ================= DISCOVER ================= */
+.discovery-tab {
+    flex: 1;
+    width: auto;
+    margin: 0;
+    border: 1px solid rgba(255,255,255,.10);
+    background: #17171d;
+    color: #aaa;
+    border-radius: 14px;
+    padding: 13px 16px;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.discovery-tab.active {
+    color: white;
+    background: linear-gradient(135deg, #24242d, #18181f);
+    border-color: rgba(255,255,255,.22);
+    box-shadow: 0 6px 20px rgba(0,0,0,.25);
+}
+
+.discovery-filters {
+    background: #111116;
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 18px;
+    padding: 18px;
+    margin-bottom: 20px;
+}
+
+.filter-title {
+    color: white;
+    font-size: 18px;
+    font-weight: 800;
+    margin-bottom: 14px;
+}
+
+.filter-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.filter-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.filter-field.full {
+    grid-column: 1 / -1;
+}
+
+.filter-field label {
+    margin: 0;
+    color: #999;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.filter-field input,
+.filter-field select {
+    background: #19191f;
+    padding: 12px;
+    border-radius: 11px;
+}
+
+.filter-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.filter-actions button {
+    flex: 1;
+    margin: 0;
+    border-radius: 12px;
+    padding: 12px;
+    font-weight: 800;
+}
+
+.apply-filters {
+    background: white;
+    color: #08080c;
+}
+
+.clear-filters {
+    background: #202027;
+    color: white;
+}
+
+.discovery-results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.results-title {
+    color: white;
+    font-size: 17px;
+    font-weight: 800;
+}
+
+.results-count {
+    color: #888;
+    font-size: 13px;
+    text-align: right;
+}
+
+.discovery-results {
+    display: grid;
+    gap: 12px;
+}
+
+.empty-results {
+    text-align: center;
+    padding: 30px 18px;
+    color: #777;
+    background: #111116;
+    border-radius: 18px;
+    border: 1px solid rgba(255,255,255,.06);
+}
+
+.empty-results strong {
+    color: #aaa;
+}
+
+/* ================= PROFILE CARDS ================= */
 
 .profile-card {
     position: relative;
@@ -465,8 +629,33 @@ button:hover {
     margin-top: 14px;
     padding: 20px;
     border-radius: 20px;
-    background: #17171e;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(28,28,38,.96),
+            rgba(17,17,24,.96)
+        );
     border: 1px solid rgba(255,255,255,.07);
+    box-shadow:
+        0 12px 35px rgba(0,0,0,.25),
+        inset 0 1px 0 rgba(255,255,255,.035);
+}
+
+.profile-card::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 3px;
+    background:
+        linear-gradient(
+            90deg,
+            #00c853,
+            #fffc00,
+            #ff2d75,
+            #229ed9
+        );
 }
 
 .profile-avatar {
@@ -477,6 +666,7 @@ button:hover {
     border-radius: 50%;
     object-fit: cover;
     border: 3px solid #3b3b47;
+    box-shadow: 0 10px 30px rgba(0,0,0,.35);
 }
 
 .profile-avatar-placeholder {
@@ -498,11 +688,178 @@ button:hover {
     font-size: 21px;
 }
 
+.profile-meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin: 8px 0;
+    color: #999;
+    font-size: 13px;
+}
+
+.profile-meta span {
+    background: #111118;
+    border: 1px solid #292933;
+    border-radius: 999px;
+    padding: 6px 9px;
+}
+
+.profile-category {
+    display: block;
+    width: fit-content;
+    margin: 8px auto 10px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: #1c1c27;
+    border: 1px solid #343444;
+    color: #ddd;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
 .profile-bio {
     margin: 7px 0 15px;
     text-align: center;
     color: #9999a6;
     line-height: 1.5;
+}
+
+.profile-interests {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 7px;
+    margin: 12px 0;
+}
+
+.profile-interest {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 9px;
+    border-radius: 999px;
+    background: #14141c;
+    border: 1px solid #2c2c38;
+    color: #cfcfd8;
+    font-size: 12px;
+}
+
+/* ================= SOCIAL LINKS ================= */
+
+.social-links {
+    display: grid;
+    gap: 10px;
+    margin-top: 14px;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 52px;
+    margin: 0;
+    padding: 12px 15px;
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: 14px;
+    background: rgba(255,255,255,.025);
+    color: #fff;
+    text-decoration: none;
+    transition:
+        transform .2s ease,
+        border-color .2s ease,
+        background .2s ease,
+        box-shadow .2s ease;
+}
+
+.social-link:hover {
+    transform: translateY(-2px);
+    background: rgba(139,124,255,.07);
+    box-shadow: 0 10px 25px rgba(0,0,0,.22);
+}
+
+.social-link:active {
+    transform: scale(.98);
+}
+
+.social-icon {
+    width: 30px;
+    height: 30px;
+    flex: 0 0 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 23px;
+}
+
+.social-name {
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.social-handle {
+    margin-left: auto;
+    color: #858392;
+    font-size: 13px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 48%;
+}
+
+.social-link.instagram:hover {
+    border-color: rgba(225,48,108,.45);
+}
+
+.social-link.snapchat:hover {
+    border-color: rgba(255,221,0,.45);
+}
+
+.social-link.telegram:hover {
+    border-color: rgba(34,158,217,.45);
+}
+
+.social-link.kik:hover {
+    border-color: rgba(0,255,126,.40);
+}
+
+/* ================= PLATFORM PREVIEW ================= */
+
+.result {
+    position: relative;
+    overflow: hidden;
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 20px;
+    background: linear-gradient(145deg,#24242d,#15151b);
+    border: 1px solid #373741;
+}
+
+.result::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 3px;
+    background:
+        linear-gradient(
+            90deg,
+            #00c853,
+            #fffc00,
+            #ff2d75,
+            #229ed9
+        );
+}
+
+.result h2 {
+    margin: 4px 0 7px;
+    font-size: 23px;
+}
+
+.result p {
+    color: #c5c5cd;
+    line-height: 1.55;
 }
 
 /* ================= TOAST ================= */
@@ -512,6 +869,7 @@ button:hover {
     left: 50%;
     bottom: 22px;
     z-index: 9999;
+    width: max-content;
     max-width: calc(100% - 30px);
     padding: 13px 18px;
     border-radius: 14px;
@@ -532,9 +890,32 @@ button:hover {
     opacity: 1;
 }
 
+/* ================= ANIMATIONS ================= */
+
+@keyframes brandFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-3px);
+    }
+}
+
+@keyframes shine {
+    0%, 55% {
+        transform: translateX(-120%) rotate(12deg);
+    }
+
+    75%, 100% {
+        transform: translateX(120%) rotate(12deg);
+    }
+}
+
 /* ================= MOBILE ================= */
 
-@media (max-width: 480px) {
+@media (max-width: 600px) {
+
     .app {
         padding: 12px 12px 50px;
     }
@@ -554,169 +935,37 @@ button:hover {
     .card {
         padding: 19px;
     }
-}
-/* ================= PREMIUM VISUAL POLISH ================= */
 
-body {
-    background:
-        radial-gradient(circle at 50% -15%, rgba(139,124,255,.20), transparent 34%),
-        radial-gradient(circle at -10% 45%, rgba(0,200,83,.06), transparent 28%),
-        radial-gradient(circle at 110% 60%, rgba(34,158,217,.07), transparent 28%),
-        #08080c;
-}
-
-.app {
-    position: relative;
-}
-
-.brand-icon {
-    position: relative;
-    overflow: hidden;
-    animation: brandFloat 4s ease-in-out infinite;
-}
-
-.brand-icon::after {
-    content: "";
-    position: absolute;
-    inset: -40%;
-    background: linear-gradient(
-        115deg,
-        transparent 35%,
-        rgba(255,255,255,.55) 50%,
-        transparent 65%
-    );
-    transform: translateX(-100%) rotate(12deg);
-    animation: shine 5s ease-in-out infinite;
-}
-
-.brand h1 {
-    background: linear-gradient(
-        135deg,
-        #ffffff 0%,
-        #d8d4ff 45%,
-        #8b7cff 100%
-    );
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.card,
-.panel,
-.profile-card,
-.result {
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-}
-
-.card {
-    background: linear-gradient(
-        145deg,
-        rgba(25,25,34,.94),
-        rgba(15,15,21,.94)
-    );
-}
-
-.card:hover {
-    box-shadow:
-        0 18px 45px rgba(0,0,0,.32),
-        0 0 0 1px rgba(139,124,255,.08);
-}
-
-.card-icon {
-    box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.08),
-        0 8px 20px rgba(0,0,0,.18);
-}
-
-.panel {
-    background: linear-gradient(
-        145deg,
-        rgba(25,25,34,.95),
-        rgba(15,15,21,.95)
-    );
-}
-
-input,
-textarea {
-    box-shadow:
-        inset 0 1px 2px rgba(0,0,0,.25);
-}
-
-input:focus,
-textarea:focus {
-    border-color: #8b7cff;
-    box-shadow:
-        0 0 0 3px rgba(139,124,255,.11),
-        0 8px 25px rgba(0,0,0,.15);
-}
-
-button {
-    position: relative;
-    overflow: hidden;
-}
-
-button::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-        110deg,
-        transparent 30%,
-        rgba(255,255,255,.18) 50%,
-        transparent 70%
-    );
-    transform: translateX(-120%);
-    transition: transform .5s ease;
-}
-
-button:hover::after {
-    transform: translateX(120%);
-}
-
-.primary-button {
-    background:
-        linear-gradient(135deg, #9b8cff, #6757ed);
-    box-shadow:
-        0 10px 30px rgba(103,87,237,.25),
-        inset 0 1px 0 rgba(255,255,255,.18);
-}
-
-.profile-card {
-    background:
-        linear-gradient(145deg, rgba(28,28,38,.96), rgba(17,17,24,.96));
-    box-shadow:
-        0 12px 35px rgba(0,0,0,.25),
-        inset 0 1px 0 rgba(255,255,255,.035);
-}
-
-.profile-avatar,
-.profile-avatar-placeholder,
-.avatar-preview {
-    box-shadow:
-        0 10px 30px rgba(0,0,0,.35),
-        0 0 0 1px rgba(255,255,255,.04);
-}
-
-.section-label {
-    color: #858392;
-}
-
-@keyframes brandFloat {
-    0%, 100% {
-        transform: translateY(0);
+    .filter-grid {
+        grid-template-columns: 1fr;
     }
-    50% {
-        transform: translateY(-3px);
-    }
-}
 
-@keyframes shine {
-    0%, 55% {
-        transform: translateX(-120%) rotate(12deg);
+    .filter-field.full {
+        grid-column: auto;
     }
-    75%, 100% {
-        transform: translateX(120%) rotate(12deg);
+
+    .profile-meta {
+        gap: 6px;
+    }
+
+    .profile-meta span {
+        font-size: 12px;
+        padding: 5px 8px;
+    }
+
+    .profile-interest {
+        font-size: 11px;
+        padding: 5px 8px;
+    }
+
+    .social-link {
+        min-height: 50px;
+        padding: 11px 13px;
+    }
+
+    .social-handle {
+        max-width: 42%;
+        font-size: 12px;
     }
 }
 
@@ -726,106 +975,14 @@ button:hover::after {
         animation: none;
     }
 }
-/* ================= SOCIAL PLATFORM POLISH ================= */
-
-.social-links {
-    display: grid;
-    gap: 10px;
-}
-
-.social-link {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    min-height: 52px;
-    padding: 12px 15px;
-    border: 1px solid rgba(255,255,255,.07);
-    border-radius: 14px;
-    background: rgba(255,255,255,.025);
-    color: #fff;
-    text-decoration: none;
-    transition:
-        transform .2s ease,
-        border-color .2s ease,
-        background .2s ease,
-        box-shadow .2s ease;
-}
-
-.social-link:hover {
-    transform: translateY(-2px);
-    border-color: rgba(139,124,255,.35);
-    background: rgba(139,124,255,.07);
-    box-shadow: 0 10px 25px rgba(0,0,0,.22);
-}
-
-.social-link:active {
-    transform: scale(.98);
-}
-
-.social-link svg,
-.social-link img,
-.social-icon {
-    width: 30px;
-    height: 30px;
-    flex: 0 0 30px;
-}
-
-.social-link .social-name {
-    font-weight: 700;
-    font-size: 14px;
-}
-
-.social-link .social-handle {
-    margin-left: auto;
-    color: #858392;
-    font-size: 13px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    max-width: 48%;
-}
-
-/* Instagram */
-.social-link.instagram:hover {
-    border-color: rgba(225,48,108,.45);
-    box-shadow: 0 10px 30px rgba(225,48,108,.10);
-}
-
-/* Snapchat */
-.social-link.snapchat:hover {
-    border-color: rgba(255,221,0,.45);
-    box-shadow: 0 10px 30px rgba(255,221,0,.08);
-}
-
-/* Telegram */
-.social-link.telegram:hover {
-    border-color: rgba(34,158,217,.45);
-    box-shadow: 0 10px 30px rgba(34,158,217,.10);
-}
-
-/* Kik */
-.social-link.kik:hover {
-    border-color: rgba(0,255,126,.40);
-    box-shadow: 0 10px 30px rgba(0,255,126,.08);
-}
-
-@media (max-width: 480px) {
-    .social-link {
-        min-height: 50px;
-        padding: 11px 13px;
-    }
-
-    .social-link .social-handle {
-        max-width: 42%;
-        font-size: 12px;
-    }
-}
 </style>
 </head>
 
 <body>
 
 <div class="app">
+
+<!-- ================= BRAND ================= -->
 
 <div class="brand">
     <div class="brand-icon">✦</div>
@@ -835,7 +992,10 @@ button:hover::after {
 
 <div id="toast"></div>
 
-<!-- ================= HOME ================= -->
+
+<!-- =========================================================
+     HOME
+     ========================================================= -->
 
 <div id="home">
 
@@ -844,6 +1004,7 @@ button:hover::after {
     <div class="card create-card" onclick="showPage('createPage')">
         <div class="card-content">
             <div class="card-icon">👤</div>
+
             <div class="card-text">
                 <h2>Create Your Profile</h2>
                 <p>Put all your social accounts in one place.</p>
@@ -851,9 +1012,11 @@ button:hover::after {
         </div>
     </div>
 
+
     <div class="card discover-card" onclick="showPage('discoverPage')">
         <div class="card-content">
             <div class="card-icon">🌎</div>
+
             <div class="card-text">
                 <h2>Discover Profiles</h2>
                 <p>Find people and explore their social profiles.</p>
@@ -861,11 +1024,14 @@ button:hover::after {
         </div>
     </div>
 
+
     <div class="section-label">Explore Platforms</div>
+
 
     <div class="card kik" onclick="showPage('kikPage')">
         <div class="card-content">
             <div class="card-icon">🟢</div>
+
             <div class="card-text">
                 <h2>Kik</h2>
                 <p>Find and share Kik usernames.</p>
@@ -873,9 +1039,11 @@ button:hover::after {
         </div>
     </div>
 
+
     <div class="card snapchat" onclick="showPage('snapchatPage')">
         <div class="card-content">
             <div class="card-icon">👻</div>
+
             <div class="card-text">
                 <h2>Snapchat</h2>
                 <p>Find and share Snapchat usernames.</p>
@@ -883,9 +1051,11 @@ button:hover::after {
         </div>
     </div>
 
+
     <div class="card instagram" onclick="showPage('instagramPage')">
         <div class="card-content">
             <div class="card-icon">📸</div>
+
             <div class="card-text">
                 <h2>Instagram</h2>
                 <p>Find and share Instagram usernames.</p>
@@ -893,9 +1063,11 @@ button:hover::after {
         </div>
     </div>
 
+
     <div class="card telegram" onclick="showPage('telegramPage')">
         <div class="card-content">
             <div class="card-icon">✈️</div>
+
             <div class="card-text">
                 <h2>Telegram</h2>
                 <p>Find and share Telegram usernames.</p>
@@ -906,13 +1078,16 @@ button:hover::after {
 </div>
 
 
-<!-- ================= CREATE PROFILE ================= -->
+<!-- =========================================================
+     CREATE PROFILE
+     ========================================================= -->
 
 <div id="createPage">
 
     <div class="back" onclick="showPage('home')">
         ← Back
     </div>
+
 
     <div class="panel">
 
@@ -921,6 +1096,7 @@ button:hover::after {
         <p class="info">
             Create one Social Hub profile and connect all the platforms you use.
         </p>
+
 
         <!-- PROFILE PHOTO -->
 
@@ -941,6 +1117,7 @@ button:hover::after {
                 >
 
             </div>
+
 
             <label for="profileAvatar">
                 Profile Picture
@@ -983,134 +1160,155 @@ button:hover::after {
             maxlength="300"
             placeholder="Tell people a little about yourself..."
         ></textarea>
-        <!-- DISCOVERY INFORMATION -->
-
-<label for="profileAge">
-    Age
-</label>
-
-<input
-    type="number"
-    id="profileAge"
-    min="18"
-    max="100"
-    placeholder="18+"
->
 
 
-<label for="profileLocation">
-    Location
-</label>
+        <label for="profileAge">
+            Age
+        </label>
 
-<input
-    type="text"
-    id="profileLocation"
-    maxlength="100"
-    placeholder="City, province, country"
->
-
-
-<label for="profileCategory">
-    What are you looking for?
-</label>
-
-<select
-    id="profileCategory"
-    style="
-        width:100%;
-        border:1px solid #30303a;
-        border-radius:14px;
-        outline:none;
-        padding:14px 15px;
-        background:#15151c;
-        color:white;
-        font-size:16px;
-    "
->
-    <option value="">Choose a category</option>
-    <option value="friends">Friends</option>
-    <option value="chat">Chat</option>
-    <option value="dating">Dating</option>
-    <option value="gaming">Gaming</option>
-    <option value="cars">Cars</option>
-    <option value="music">Music</option>
-    <option value="sports">Sports</option>
-    <option value="social">Social</option>
-    <option value="other">Other</option>
-</select>
+        <input
+            type="number"
+            id="profileAge"
+            min="18"
+            max="100"
+            placeholder="18+"
+        >
 
 
-<label>
-    Interests
-</label>
+        <label for="profileLocation">
+            Location
+        </label>
 
-<div class="interest-options profile-interest-options">
+        <input
+            type="text"
+            id="profileLocation"
+            maxlength="100"
+            placeholder="City, province, country"
+        >
 
-    <button
-        type="button"
-        class="filter-chip profile-interest-chip"
-        onclick="toggleProfileInterest('cars', this)"
-    >
-        🚗 Cars
-    </button>
 
-    <button
-        type="button"
-        class="filter-chip profile-interest-chip"
-        onclick="toggleProfileInterest('gaming', this)"
-    >
-        🎮 Gaming
-    </button>
+        <label for="profileCategory">
+            What are you looking for?
+        </label>
 
-    <button
-        type="button"
-        class="filter-chip profile-interest-chip"
-        onclick="toggleProfileInterest('music', this)"
-    >
-        🎵 Music
-    </button>
+        <select id="profileCategory">
 
-    <button
-        type="button"
-        class="filter-chip profile-interest-chip"
-        onclick="toggleProfileInterest('sports', this)"
-    >
-        🏈 Sports
-    </button>
+            <option value="">
+                Choose a category
+            </option>
 
-    <button
-        type="button"
-        class="filter-chip profile-interest-chip"
-        onclick="toggleProfileInterest('travel', this)"
-    >
-        ✈️ Travel
-    </button>
+            <option value="friends">
+                Friends
+            </option>
 
-    <button
-        type="button"
-        class="filter-chip profile-interest-chip"
-        onclick="toggleProfileInterest('fitness', this)"
-    >
-        💪 Fitness
-    </button>
+            <option value="chat">
+                Chat
+            </option>
 
-    <button
-        type="button"
-        class="filter-chip profile-interest-chip"
-        onclick="toggleProfileInterest('anime', this)"
-    >
-        🍥 Anime
-    </button>
+            <option value="dating">
+                Dating
+            </option>
 
-    <button
-        type="button"
-        class="filter-chip profile-interest-chip"
-        onclick="toggleProfileInterest('memes', this)"
-    >
-        😂 Memes
-    </button>
+            <option value="gaming">
+                Gaming
+            </option>
 
-</div>
+            <option value="cars">
+                Cars
+            </option>
+
+            <option value="music">
+                Music
+            </option>
+
+            <option value="sports">
+                Sports
+            </option>
+
+            <option value="social">
+                Social
+            </option>
+
+            <option value="other">
+                Other
+            </option>
+
+        </select>
+
+
+        <!-- INTERESTS -->
+
+        <label>
+            Interests
+        </label>
+
+        <div class="interest-options">
+
+            <button
+                type="button"
+                class="filter-chip profile-interest-chip"
+                onclick="toggleProfileInterest('cars', this)"
+            >
+                🚗 Cars
+            </button>
+
+            <button
+                type="button"
+                class="filter-chip profile-interest-chip"
+                onclick="toggleProfileInterest('gaming', this)"
+            >
+                🎮 Gaming
+            </button>
+
+            <button
+                type="button"
+                class="filter-chip profile-interest-chip"
+                onclick="toggleProfileInterest('music', this)"
+            >
+                🎵 Music
+            </button>
+
+            <button
+                type="button"
+                class="filter-chip profile-interest-chip"
+                onclick="toggleProfileInterest('sports', this)"
+            >
+                🏈 Sports
+            </button>
+
+            <button
+                type="button"
+                class="filter-chip profile-interest-chip"
+                onclick="toggleProfileInterest('travel', this)"
+            >
+                ✈️ Travel
+            </button>
+
+            <button
+                type="button"
+                class="filter-chip profile-interest-chip"
+                onclick="toggleProfileInterest('fitness', this)"
+            >
+                💪 Fitness
+            </button>
+
+            <button
+                type="button"
+                class="filter-chip profile-interest-chip"
+                onclick="toggleProfileInterest('anime', this)"
+            >
+                🍥 Anime
+            </button>
+
+            <button
+                type="button"
+                class="filter-chip profile-interest-chip"
+                onclick="toggleProfileInterest('memes', this)"
+            >
+                😂 Memes
+            </button>
+
+        </div>
 
 
         <!-- SOCIAL ACCOUNTS -->
@@ -1161,6 +1359,7 @@ button:hover::after {
 
         <button
             class="primary-button"
+            id="createProfileButton"
             onclick="createProfile()"
         >
             Create My Profile
@@ -1171,8 +1370,9 @@ button:hover::after {
 </div>
 
 
-
-<!-- ================= DISCOVER ================= -->
+<!-- =========================================================
+     DISCOVER
+     ========================================================= -->
 
 <div id="discoverPage">
 
@@ -1180,13 +1380,16 @@ button:hover::after {
         ← Back
     </div>
 
+
     <div class="panel">
 
         <h2>Discover</h2>
 
         <p class="info">
-            Find people and group chats that match what you're looking for.
+            Find people based on their name, username, location,
+            interests, age, or social platform.
         </p>
+
 
         <!-- PEOPLE / GROUPS -->
 
@@ -1196,7 +1399,7 @@ button:hover::after {
                 type="button"
                 class="discovery-tab active"
                 data-mode="people"
-                onclick="socialPromoterDiscovery.setMode('people')"
+                onclick="setDiscoveryMode('people')"
             >
                 👤 People
             </button>
@@ -1205,7 +1408,7 @@ button:hover::after {
                 type="button"
                 class="discovery-tab"
                 data-mode="groups"
-                onclick="socialPromoterDiscovery.setMode('groups')"
+                onclick="setDiscoveryMode('groups')"
             >
                 👥 Group Chats
             </button>
@@ -1232,7 +1435,6 @@ button:hover::after {
 
                 <div class="filter-grid">
 
-
                     <!-- SEARCH -->
 
                     <div class="filter-field full">
@@ -1244,7 +1446,7 @@ button:hover::after {
                         <input
                             id="discoverySearch"
                             type="search"
-                            placeholder="Search profiles, interests, groups..."
+                            placeholder="Name, username, bio, interest..."
                             autocomplete="off"
                         >
 
@@ -1406,78 +1608,77 @@ button:hover::after {
 
                         <div class="interest-options">
 
-
                             <button
                                 type="button"
                                 class="filter-chip"
-                                onclick="socialPromoterDiscovery.toggleInterest('cars', this)"
+                                data-interest="cars"
+                                onclick="toggleDiscoveryInterest('cars', this)"
                             >
                                 🚗 Cars
                             </button>
 
-
                             <button
                                 type="button"
                                 class="filter-chip"
-                                onclick="socialPromoterDiscovery.toggleInterest('gaming', this)"
+                                data-interest="gaming"
+                                onclick="toggleDiscoveryInterest('gaming', this)"
                             >
                                 🎮 Gaming
                             </button>
 
-
                             <button
                                 type="button"
                                 class="filter-chip"
-                                onclick="socialPromoterDiscovery.toggleInterest('music', this)"
+                                data-interest="music"
+                                onclick="toggleDiscoveryInterest('music', this)"
                             >
                                 🎵 Music
                             </button>
 
-
                             <button
                                 type="button"
                                 class="filter-chip"
-                                onclick="socialPromoterDiscovery.toggleInterest('sports', this)"
+                                data-interest="sports"
+                                onclick="toggleDiscoveryInterest('sports', this)"
                             >
                                 🏈 Sports
                             </button>
 
-
                             <button
                                 type="button"
                                 class="filter-chip"
-                                onclick="socialPromoterDiscovery.toggleInterest('travel', this)"
+                                data-interest="travel"
+                                onclick="toggleDiscoveryInterest('travel', this)"
                             >
                                 ✈️ Travel
                             </button>
 
-
                             <button
                                 type="button"
                                 class="filter-chip"
-                                onclick="socialPromoterDiscovery.toggleInterest('fitness', this)"
+                                data-interest="fitness"
+                                onclick="toggleDiscoveryInterest('fitness', this)"
                             >
                                 💪 Fitness
                             </button>
 
-
                             <button
                                 type="button"
                                 class="filter-chip"
-                                onclick="socialPromoterDiscovery.toggleInterest('anime', this)"
+                                data-interest="anime"
+                                onclick="toggleDiscoveryInterest('anime', this)"
                             >
                                 🍥 Anime
                             </button>
 
-
                             <button
                                 type="button"
                                 class="filter-chip"
-                                onclick="socialPromoterDiscovery.toggleInterest('memes', this)"
+                                data-interest="memes"
+                                onclick="toggleDiscoveryInterest('memes', this)"
                             >
                                 😂 Memes
                             </button>
-
 
                         </div>
 
@@ -1486,7 +1687,7 @@ button:hover::after {
                 </div>
 
 
-                <!-- BUTTONS -->
+                <!-- ACTIONS -->
 
                 <div class="filter-actions">
 
@@ -1500,7 +1701,7 @@ button:hover::after {
                     <button
                         type="button"
                         class="clear-filters"
-                        onclick="socialPromoterDiscovery.clear()"
+                        onclick="clearDiscoveryFilters()"
                     >
                         Clear
                     </button>
@@ -1512,7 +1713,7 @@ button:hover::after {
         </div>
 
 
-        <!-- RESULTS -->
+        <!-- RESULTS HEADER -->
 
         <div class="discovery-results-header">
 
@@ -1530,6 +1731,8 @@ button:hover::after {
         </div>
 
 
+        <!-- RESULTS -->
+
         <div
             class="discovery-results"
             id="discoveryResults"
@@ -1541,7 +1744,7 @@ button:hover::after {
                     🔎
                 </div>
 
-                <strong style="color:#aaa;">
+                <strong>
                     Find exactly what you're looking for
                 </strong>
 
@@ -1556,7 +1759,11 @@ button:hover::after {
     </div>
 
 </div>
-<!-- ================= KIK ================= -->
+
+
+<!-- =========================================================
+     KIK
+     ========================================================= -->
 
 <div id="kikPage">
 
@@ -1569,7 +1776,7 @@ button:hover::after {
         <h2>🟢 Kik</h2>
 
         <p class="info">
-            Enter your Kik username to create a quick profile preview.
+            Enter a Kik username to create a quick profile preview.
         </p>
 
         <label for="kikUsername">
@@ -1605,7 +1812,9 @@ button:hover::after {
 </div>
 
 
-<!-- ================= SNAPCHAT ================= -->
+<!-- =========================================================
+     SNAPCHAT
+     ========================================================= -->
 
 <div id="snapchatPage">
 
@@ -1618,7 +1827,7 @@ button:hover::after {
         <h2>👻 Snapchat</h2>
 
         <p class="info">
-            Enter your Snapchat username to create a quick profile preview.
+            Enter a Snapchat username to create a quick profile preview.
         </p>
 
         <label for="snapUsername">
@@ -1654,7 +1863,9 @@ button:hover::after {
 </div>
 
 
-<!-- ================= INSTAGRAM ================= -->
+<!-- =========================================================
+     INSTAGRAM
+     ========================================================= -->
 
 <div id="instagramPage">
 
@@ -1667,7 +1878,7 @@ button:hover::after {
         <h2>📸 Instagram</h2>
 
         <p class="info">
-            Enter your Instagram username to create a quick profile preview.
+            Enter an Instagram username to create a quick profile preview.
         </p>
 
         <label for="instagramUsername">
@@ -1703,7 +1914,9 @@ button:hover::after {
 </div>
 
 
-<!-- ================= TELEGRAM ================= -->
+<!-- =========================================================
+     TELEGRAM
+     ========================================================= -->
 
 <div id="telegramPage">
 
@@ -1716,7 +1929,7 @@ button:hover::after {
         <h2>✈️ Telegram</h2>
 
         <p class="info">
-            Enter your Telegram username to create a quick profile preview.
+            Enter a Telegram username to create a quick profile preview.
         </p>
 
         <label for="telegramUsername">
@@ -1750,6 +1963,8 @@ button:hover::after {
     </div>
 
 </div>
+
+
 <script>
 
 /* =========================================================
@@ -1767,6 +1982,19 @@ const supabaseClient =
         SUPABASE_URL,
         SUPABASE_KEY
     );
+
+
+/* =========================================================
+   APP STATE
+   ========================================================= */
+
+let toastTimer = null;
+
+let profileInterests = [];
+
+let discoveryInterests = [];
+
+let discoveryMode = "people";
 
 
 /* =========================================================
@@ -1796,29 +2024,31 @@ function showPage(page) {
 
     });
 
+
     const selectedPage =
         document.getElementById(page);
+
 
     if (selectedPage) {
         selectedPage.style.display = "block";
     }
+
 
     window.scrollTo({
         top: 0,
         behavior: "smooth"
     });
 
+
     if (page === "discoverPage") {
-        loadDiscoverProfiles();
+        runDiscoverySearch();
     }
 }
 
 
 /* =========================================================
-   TOAST MESSAGE
+   TOAST
    ========================================================= */
-
-let toastTimer;
 
 function showToast(message) {
 
@@ -1827,15 +2057,21 @@ function showToast(message) {
 
     if (!toast) return;
 
+
     toast.textContent = message;
 
     toast.classList.add("show");
 
+
     clearTimeout(toastTimer);
 
-    toastTimer = setTimeout(function() {
-        toast.classList.remove("show");
-    }, 3000);
+
+    toastTimer =
+        setTimeout(function() {
+
+            toast.classList.remove("show");
+
+        }, 3500);
 }
 
 
@@ -1865,6 +2101,7 @@ function escapeHTML(text) {
         return "";
     }
 
+
     return String(text)
         .replace(/&/g, "&amp;")
         .replace(/</g, "&lt;")
@@ -1883,28 +2120,28 @@ const platformInfo = {
     kik: {
         name: "Kik",
         icon: "🟢",
-        color: "kik-button",
+        buttonClass: "kik-button",
         result: "kikResult"
     },
 
     snapchat: {
         name: "Snapchat",
         icon: "👻",
-        color: "snap-button",
+        buttonClass: "snap-button",
         result: "snapResult"
     },
 
     instagram: {
         name: "Instagram",
         icon: "📸",
-        color: "instagram-button",
+        buttonClass: "instagram-button",
         result: "instagramResult"
     },
 
     telegram: {
         name: "Telegram",
         icon: "✈️",
-        color: "telegram-button",
+        buttonClass: "telegram-button",
         result: "telegramResult"
     }
 
@@ -1912,7 +2149,7 @@ const platformInfo = {
 
 
 /* =========================================================
-   SOCIAL LINK
+   SOCIAL LINKS
    ========================================================= */
 
 function socialLink(platform, username) {
@@ -1920,42 +2157,54 @@ function socialLink(platform, username) {
     const clean =
         cleanUsername(username);
 
+
     if (!clean) {
         return "";
     }
 
+
     let url = "";
 
+
     if (platform === "instagram") {
+
         url =
             "https://www.instagram.com/" +
             encodeURIComponent(clean);
     }
 
+
     if (platform === "telegram") {
+
         url =
             "https://t.me/" +
             encodeURIComponent(clean);
     }
 
+
     if (platform === "snapchat") {
+
         url =
             "https://www.snapchat.com/add/" +
             encodeURIComponent(clean);
     }
 
+
     if (platform === "kik") {
+
         url =
             "https://kik.me/" +
             encodeURIComponent(clean);
     }
 
+
     const info =
         platformInfo[platform];
 
+
     return `
         <a
-            class="social-link ${info.color}"
+            class="social-link ${platform}"
             href="${url}"
             target="_blank"
             rel="noopener noreferrer"
@@ -1963,14 +2212,21 @@ function socialLink(platform, username) {
             <span class="social-icon">
                 ${info.icon}
             </span>
-            ${info.name}: @${escapeHTML(clean)}
+
+            <span class="social-name">
+                ${escapeHTML(info.name)}
+            </span>
+
+            <span class="social-handle">
+                @${escapeHTML(clean)}
+            </span>
         </a>
     `;
 }
 
 
 /* =========================================================
-   PROFILE PHOTO PREVIEW
+   AVATAR PREVIEW
    ========================================================= */
 
 function previewAvatar(event) {
@@ -1978,13 +2234,18 @@ function previewAvatar(event) {
     const file =
         event.target.files[0];
 
+
     const preview =
         document.getElementById("avatarPreview");
+
 
     const placeholder =
         document.getElementById("avatarPlaceholder");
 
+
     if (!file) {
+
+        preview.src = "";
 
         preview.style.display = "none";
 
@@ -1993,11 +2254,13 @@ function previewAvatar(event) {
         return;
     }
 
+
     const allowedTypes = [
         "image/jpeg",
         "image/png",
         "image/webp"
     ];
+
 
     if (!allowedTypes.includes(file.type)) {
 
@@ -2010,6 +2273,7 @@ function previewAvatar(event) {
         return;
     }
 
+
     if (file.size > 5 * 1024 * 1024) {
 
         showToast(
@@ -2021,27 +2285,31 @@ function previewAvatar(event) {
         return;
     }
 
+
     const reader =
         new FileReader();
 
-    reader.onload = function(e) {
 
-        preview.src =
-            e.target.result;
+    reader.onload =
+        function(e) {
 
-        preview.style.display =
-            "block";
+            preview.src =
+                e.target.result;
 
-        placeholder.style.display =
-            "none";
-    };
+            preview.style.display =
+                "block";
+
+            placeholder.style.display =
+                "none";
+        };
+
 
     reader.readAsDataURL(file);
 }
 
 
 /* =========================================================
-   UPLOAD AVATAR
+   AVATAR UPLOAD
    ========================================================= */
 
 async function uploadAvatar(file) {
@@ -2050,42 +2318,85 @@ async function uploadAvatar(file) {
         return null;
     }
 
+
     const extension =
         file.name
             .split(".")
             .pop()
             .toLowerCase();
 
+
+    const randomId =
+        window.crypto &&
+        typeof window.crypto.randomUUID === "function"
+            ? window.crypto.randomUUID()
+            : Date.now() + "-" + Math.random();
+
+
     const fileName =
-        `profiles/${crypto.randomUUID()}.${extension}`;
+        `profiles/${randomId}.${extension}`;
+
 
     const {
         error: uploadError
-    } = await supabaseClient
-        .storage
-        .from("avatars")
-        .upload(
-            fileName,
-            file,
-            {
-                cacheControl: "3600",
-                upsert: false,
-                contentType: file.type
-            }
-        );
+    } =
+        await supabaseClient
+            .storage
+            .from("avatars")
+            .upload(
+                fileName,
+                file,
+                {
+                    cacheControl: "3600",
+                    upsert: false,
+                    contentType: file.type
+                }
+            );
+
 
     if (uploadError) {
         throw uploadError;
     }
 
+
     const {
         data
-    } = supabaseClient
-        .storage
-        .from("avatars")
-        .getPublicUrl(fileName);
+    } =
+        supabaseClient
+            .storage
+            .from("avatars")
+            .getPublicUrl(fileName);
+
 
     return data.publicUrl;
+}
+
+
+/* =========================================================
+   PROFILE INTERESTS
+   ========================================================= */
+
+function toggleProfileInterest(
+    value,
+    button
+) {
+
+    const index =
+        profileInterests.indexOf(value);
+
+
+    if (index === -1) {
+
+        profileInterests.push(value);
+
+        button.classList.add("active");
+
+    } else {
+
+        profileInterests.splice(index, 1);
+
+        button.classList.remove("active");
+    }
 }
 
 
@@ -2093,32 +2404,6 @@ async function uploadAvatar(file) {
    CREATE PROFILE
    ========================================================= */
 
-// ================= PROFILE INTERESTS =================
-
-window.socialPromoterProfileInterests = [];
-
-function toggleProfileInterest(value, button) {
-
-    const interests =
-        window.socialPromoterProfileInterests;
-
-    const index =
-        interests.indexOf(value);
-
-    if (index === -1) {
-
-        interests.push(value);
-
-        button.classList.add("active");
-
-    } else {
-
-        interests.splice(index, 1);
-
-        button.classList.remove("active");
-
-    }
-}
 async function createProfile() {
 
     const displayName =
@@ -2127,21 +2412,26 @@ async function createProfile() {
             .value
             .trim();
 
+
     const bio =
         document
             .getElementById("profileBio")
             .value
             .trim();
-                const ageValue =
+
+
+    const ageValue =
         document
             .getElementById("profileAge")
             .value
             .trim();
 
+
     const age =
         ageValue
             ? Number(ageValue)
             : null;
+
 
     const location =
         document
@@ -2149,13 +2439,12 @@ async function createProfile() {
             .value
             .trim();
 
+
     const category =
         document
             .getElementById("profileCategory")
             .value;
 
-    const interests =
-        window.socialPromoterProfileInterests || [];
 
     const kik =
         cleanUsername(
@@ -2164,12 +2453,14 @@ async function createProfile() {
                 .value
         );
 
+
     const snapchat =
         cleanUsername(
             document
                 .getElementById("profileSnapchat")
                 .value
         );
+
 
     const instagram =
         cleanUsername(
@@ -2178,6 +2469,7 @@ async function createProfile() {
                 .value
         );
 
+
     const telegram =
         cleanUsername(
             document
@@ -2185,16 +2477,36 @@ async function createProfile() {
                 .value
         );
 
+
     const avatarFile =
         document
             .getElementById("profileAvatar")
             .files[0];
 
 
+    /* VALIDATION */
+
     if (!displayName) {
 
         showToast(
             "Please enter a display name."
+        );
+
+        return;
+    }
+
+
+    if (
+        age !== null &&
+        (
+            Number.isNaN(age) ||
+            age < 18 ||
+            age > 100
+        )
+    ) {
+
+        showToast(
+            "Age must be between 18 and 100."
         );
 
         return;
@@ -2217,9 +2529,10 @@ async function createProfile() {
 
 
     const button =
-        document.querySelector(
-            "#createPage .primary-button"
+        document.getElementById(
+            "createProfileButton"
         );
+
 
     if (button) {
 
@@ -2234,6 +2547,7 @@ async function createProfile() {
 
         let avatarUrl = null;
 
+
         if (avatarFile) {
 
             avatarUrl =
@@ -2245,26 +2559,26 @@ async function createProfile() {
 
         const profile = {
 
-    display_name:
-        displayName,
+            display_name:
+                displayName,
 
-    bio:
-        bio,
+            bio:
+                bio,
 
-    age:
-        age,
+            age:
+                age,
 
-    location:
-        location,
+            location:
+                location,
 
-    category:
-        category,
+            category:
+                category,
 
-    interests:
-        interests,
+            interests:
+                [...profileInterests],
 
-    kik:
-        kik,
+            kik:
+                kik,
 
             snapchat:
                 snapchat,
@@ -2277,18 +2591,15 @@ async function createProfile() {
 
             avatar_url:
                 avatarUrl
-
         };
 
 
         const {
-            data,
             error
-        } = await supabaseClient
-            .from("profiles")
-            .insert([profile])
-            .select()
-            .single();
+        } =
+            await supabaseClient
+                .from("profiles")
+                .insert([profile]);
 
 
         if (error) {
@@ -2304,13 +2615,16 @@ async function createProfile() {
         resetCreateForm();
 
 
-        setTimeout(function() {
+        setTimeout(
+            function() {
 
-            showPage(
-                "discoverPage"
-            );
+                showPage(
+                    "discoverPage"
+                );
 
-        }, 700);
+            },
+            700
+        );
 
 
     } catch (error) {
@@ -2320,10 +2634,10 @@ async function createProfile() {
             error
         );
 
+
         showToast(
-            "Something went wrong: " +
-            (error.message ||
-            "Could not save profile.")
+            error.message ||
+            "Something went wrong while creating your profile."
         );
 
 
@@ -2338,41 +2652,97 @@ async function createProfile() {
         }
     }
 }
+
+
 /* =========================================================
    RESET CREATE FORM
    ========================================================= */
 
 function resetCreateForm() {
-    
-        // Reset selected profile interests
-    window.socialPromoterProfileInterests = [];
+
+    profileInterests = [];
+
 
     document
-        .querySelectorAll(".profile-interest-chip")
-        .forEach(button => {
+        .querySelectorAll(
+            ".profile-interest-chip"
+        )
+        .forEach(function(button) {
+
             button.classList.remove("active");
+
         });
 
-    document.getElementById("displayName").value = "";
-    document.getElementById("profileBio").value = "";
 
-    document.getElementById("profileKik").value = "";
-    document.getElementById("profileSnapchat").value = "";
-    document.getElementById("profileInstagram").value = "";
-    document.getElementById("profileTelegram").value = "";
+    document.getElementById(
+        "displayName"
+    ).value = "";
 
-    document.getElementById("profileAvatar").value = "";
+
+    document.getElementById(
+        "profileBio"
+    ).value = "";
+
+
+    document.getElementById(
+        "profileAge"
+    ).value = "";
+
+
+    document.getElementById(
+        "profileLocation"
+    ).value = "";
+
+
+    document.getElementById(
+        "profileCategory"
+    ).value = "";
+
+
+    document.getElementById(
+        "profileKik"
+    ).value = "";
+
+
+    document.getElementById(
+        "profileSnapchat"
+    ).value = "";
+
+
+    document.getElementById(
+        "profileInstagram"
+    ).value = "";
+
+
+    document.getElementById(
+        "profileTelegram"
+    ).value = "";
+
+
+    document.getElementById(
+        "profileAvatar"
+    ).value = "";
+
 
     const preview =
-        document.getElementById("avatarPreview");
+        document.getElementById(
+            "avatarPreview"
+        );
+
 
     const placeholder =
-        document.getElementById("avatarPlaceholder");
+        document.getElementById(
+            "avatarPlaceholder"
+        );
+
 
     preview.src = "";
-    preview.style.display = "none";
 
-    placeholder.style.display = "block";
+    preview.style.display =
+        "none";
+
+    placeholder.style.display =
+        "block";
 }
 
 
@@ -2385,68 +2755,70 @@ function previewPlatform(platform) {
     const info =
         platformInfo[platform];
 
+
     if (!info) {
         return;
     }
 
 
     let username = "";
+
     let bio = "";
 
 
     if (platform === "kik") {
 
         username =
-            document.getElementById(
-                "kikUsername"
-            ).value;
+            document
+                .getElementById("kikUsername")
+                .value;
 
         bio =
-            document.getElementById(
-                "kikBio"
-            ).value;
+            document
+                .getElementById("kikBio")
+                .value;
     }
 
 
     if (platform === "snapchat") {
 
         username =
-            document.getElementById(
-                "snapUsername"
-            ).value;
+            document
+                .getElementById("snapUsername")
+                .value;
 
         bio =
-            document.getElementById(
-                "snapBio"
-            ).value;
+            document
+                .getElementById("snapBio")
+                .value;
     }
 
 
     if (platform === "instagram") {
 
         username =
-            document.getElementById(
-                "instagramUsername"
-            ).value;
+            document
+                .getElementById("instagramUsername")
+                .value;
 
         bio =
-            document.getElementById(
-                "instagramBio"
-            ).value;
+            document
+                .getElementById("instagramBio")
+                .value;
     }
 
 
     if (platform === "telegram") {
 
         username =
-            document.getElementById(
-                "telegramUsername"
-            ).value;
+            document
+                .getElementById("telegramUsername")
+                .value;
 
         bio =
-            document.getElementById(
-                "telegramBio"
-            ).value;
+            document
+                .getElementById("telegramBio")
+                .value;
     }
 
 
@@ -2491,12 +2863,15 @@ function previewPlatform(platform) {
                 )}
             </p>
 
-            ${socialLink(
-                platform,
-                username
-            )}
+            <div class="social-links">
+                ${socialLink(
+                    platform,
+                    username
+                )}
+            </div>
 
         </div>
+
     `;
 }
 
@@ -2513,11 +2888,13 @@ function profileCard(profile) {
             "Anonymous"
         );
 
+
     const bio =
         escapeHTML(
             profile.bio ||
             "No bio yet."
         );
+
 
     const location =
         escapeHTML(
@@ -2525,20 +2902,26 @@ function profileCard(profile) {
             ""
         );
 
+
     const category =
         escapeHTML(
             profile.category
-                ? profile.category.charAt(0).toUpperCase() +
+                ? profile.category
+                    .charAt(0)
+                    .toUpperCase() +
                   profile.category.slice(1)
                 : ""
         );
+
 
     const age =
         profile.age
             ? `${profile.age} years old`
             : "";
 
+
     let avatarHTML = "";
+
 
     if (profile.avatar_url) {
 
@@ -2546,9 +2929,7 @@ function profileCard(profile) {
 
             <img
                 class="profile-avatar"
-                src="${escapeHTML(
-                    profile.avatar_url
-                )}"
+                src="${escapeHTML(profile.avatar_url)}"
                 alt="${name}'s profile picture"
                 loading="lazy"
                 onerror="
@@ -2563,6 +2944,7 @@ function profileCard(profile) {
             >
                 👤
             </div>
+
         `;
 
     } else {
@@ -2576,56 +2958,97 @@ function profileCard(profile) {
         `;
     }
 
+
     const interestLabels = {
+
         cars: "🚗 Cars",
+
         gaming: "🎮 Gaming",
+
         music: "🎵 Music",
+
         sports: "🏈 Sports",
+
         travel: "✈️ Travel",
+
         fitness: "💪 Fitness",
+
         anime: "🍥 Anime",
+
         memes: "😂 Memes"
+
     };
+
 
     const interests =
         Array.isArray(profile.interests)
             ? profile.interests
             : [];
 
+
     const interestHTML =
         interests
-            .map(interest => {
+            .map(function(interest) {
 
                 const label =
                     interestLabels[interest] ||
                     interest;
 
+
                 return `
+
                     <span class="profile-interest">
                         ${escapeHTML(label)}
                     </span>
+
                 `;
 
             })
             .join("");
 
+
     let links = "";
 
+
     if (profile.kik) {
-        links += socialLink("kik", profile.kik);
+
+        links +=
+            socialLink(
+                "kik",
+                profile.kik
+            );
     }
+
 
     if (profile.snapchat) {
-        links += socialLink("snapchat", profile.snapchat);
+
+        links +=
+            socialLink(
+                "snapchat",
+                profile.snapchat
+            );
     }
+
 
     if (profile.instagram) {
-        links += socialLink("instagram", profile.instagram);
+
+        links +=
+            socialLink(
+                "instagram",
+                profile.instagram
+            );
     }
 
+
     if (profile.telegram) {
-        links += socialLink("telegram", profile.telegram);
+
+        links +=
+            socialLink(
+                "telegram",
+                profile.telegram
+            );
     }
+
 
     return `
 
@@ -2633,13 +3056,16 @@ function profileCard(profile) {
 
             ${avatarHTML}
 
+
             <h3 class="profile-name">
                 ${name}
             </h3>
 
+
             ${
                 age || location
                     ? `
+
                         <div class="profile-meta">
 
                             ${
@@ -2655,35 +3081,54 @@ function profileCard(profile) {
                             }
 
                         </div>
+
                     `
                     : ""
             }
 
+
             ${
                 category
                     ? `
+
                         <div class="profile-category">
                             ${category}
                         </div>
+
                     `
                     : ""
             }
+
 
             <p class="profile-bio">
                 ${bio}
             </p>
 
+
             ${
                 interestHTML
                     ? `
+
                         <div class="profile-interests">
                             ${interestHTML}
                         </div>
+
                     `
                     : ""
             }
 
-            ${links}
+
+            ${
+                links
+                    ? `
+
+                        <div class="social-links">
+                            ${links}
+                        </div>
+
+                    `
+                    : ""
+            }
 
         </div>
 
@@ -2692,39 +3137,204 @@ function profileCard(profile) {
 
 
 /* =========================================================
-   LOAD DISCOVER PROFILES
+   DISCOVERY MODE
    ========================================================= */
 
-// ================= DISCOVERY SEARCH =================
+function setDiscoveryMode(mode) {
 
-async function loadDiscoverProfiles() {
+    discoveryMode = mode;
 
-    await runDiscoverySearch();
 
+    document
+        .querySelectorAll(".discovery-tab")
+        .forEach(function(tab) {
+
+            tab.classList.toggle(
+                "active",
+                tab.dataset.mode === mode
+            );
+
+        });
+
+
+    const title =
+        document.getElementById(
+            "discoveryFilterTitle"
+        );
+
+
+    if (title) {
+
+        title.textContent =
+            mode === "groups"
+                ? "Find Group Chats"
+                : "Find People";
+    }
+
+
+    if (mode === "groups") {
+
+        showToast(
+            "Group chats are coming next. People discovery is ready now."
+        );
+
+        return;
+    }
+
+
+    runDiscoverySearch();
 }
 
-async function runDiscoverySearch() {
-    
-        socialPromoterDiscovery.syncFilters();
 
-    const results =
-        document.getElementById("discoveryResults");
+/* =========================================================
+   DISCOVERY INTERESTS
+   ========================================================= */
+
+function toggleDiscoveryInterest(
+    value,
+    button
+) {
+
+    const index =
+        discoveryInterests.indexOf(value);
+
+
+    if (index === -1) {
+
+        discoveryInterests.push(value);
+
+        button.classList.add("active");
+
+    } else {
+
+        discoveryInterests.splice(
+            index,
+            1
+        );
+
+        button.classList.remove("active");
+    }
+}
+
+
+/* =========================================================
+   CLEAR DISCOVERY
+   ========================================================= */
+
+function clearDiscoveryFilters() {
+
+    discoveryInterests = [];
+
+
+    const form =
+        document.getElementById(
+            "discoveryFilters"
+        );
+
+
+    if (form) {
+        form.reset();
+    }
+
+
+    document
+        .querySelectorAll(
+            "#discoverPage .filter-chip"
+        )
+        .forEach(function(chip) {
+
+            chip.classList.remove("active");
+
+        });
+
 
     const count =
-        document.getElementById("discoveryResultsCount");
+        document.getElementById(
+            "discoveryResultsCount"
+        );
 
-    if (!results) return;
+
+    if (count) {
+        count.textContent =
+            "Ready to search";
+    }
+
+
+    const results =
+        document.getElementById(
+            "discoveryResults"
+        );
+
+
+    if (results) {
+
+        results.innerHTML = `
+
+            <div class="empty-results">
+
+                <div style="font-size:32px;margin-bottom:8px;">
+                    🔎
+                </div>
+
+                <strong>
+                    Find exactly what you're looking for
+                </strong>
+
+                <div style="margin-top:6px;">
+                    Choose your filters and hit Find.
+                </div>
+
+            </div>
+
+        `;
+    }
+}
+
+
+/* =========================================================
+   DISCOVERY SEARCH
+   ========================================================= */
+
+async function runDiscoverySearch() {
+
+    if (discoveryMode === "groups") {
+        return;
+    }
+
+
+    const results =
+        document.getElementById(
+            "discoveryResults"
+        );
+
+
+    const count =
+        document.getElementById(
+            "discoveryResultsCount"
+        );
+
+
+    if (!results) {
+        return;
+    }
+
 
     results.innerHTML = `
+
         <div class="empty-results">
+
             <div style="font-size:32px;margin-bottom:8px;">
-                🔎
+                ⏳
             </div>
-            <strong style="color:#aaa;">
+
+            <strong>
                 Searching...
             </strong>
+
         </div>
+
     `;
+
 
     const search =
         document
@@ -2733,10 +3343,12 @@ async function runDiscoverySearch() {
             .trim()
             .toLowerCase();
 
+
     const platform =
         document
             .getElementById("discoveryPlatform")
             .value;
+
 
     const location =
         document
@@ -2745,11 +3357,13 @@ async function runDiscoverySearch() {
             .trim()
             .toLowerCase();
 
+
     const minAgeValue =
         document
             .getElementById("discoveryMinAge")
             .value
             .trim();
+
 
     const maxAgeValue =
         document
@@ -2757,245 +3371,27 @@ async function runDiscoverySearch() {
             .value
             .trim();
 
+
     const category =
         document
             .getElementById("discoveryCategory")
             .value;
+
 
     const minAge =
         minAgeValue
             ? Number(minAgeValue)
             : null;
 
+
     const maxAge =
         maxAgeValue
             ? Number(maxAgeValue)
             : null;
 
-    const selectedInterests =
-        socialPromoterDiscovery.filters.interests || [];
 
     let query =
         supabaseClient
-            .from("profiles")
-            .select("*")
-            .order("display_name", {
-                ascending: true
-            });
-
-    // Platform filter
-    if (platform) {
-
-        query = query.not(
-            platform,
-            "is",
-            null
-        );
-
-        query = query.neq(
-            platform,
-            ""
-        );
-    }
-
-    // Age filters
-    if (minAge !== null && !Number.isNaN(minAge)) {
-
-        query = query.gte(
-            "age",
-            minAge
-        );
-    }
-
-    if (maxAge !== null && !Number.isNaN(maxAge)) {
-
-        query = query.lte(
-            "age",
-            maxAge
-        );
-    }
-
-    // Category filter
-    if (category) {
-
-        query = query.eq(
-            "category",
-            category
-        );
-    }
-
-    const { data, error } =
-        await query;
-
-    if (error) {
-
-        console.error(
-            "Discovery search error:",
-            error
-        );
-
-        results.innerHTML = `
-            <div class="empty-results">
-                <div style="font-size:32px;margin-bottom:8px;">
-                    ⚠️
-                </div>
-
-                <strong style="color:#aaa;">
-                    Something went wrong
-                </strong>
-
-                <div style="margin-top:6px;">
-                    We couldn't load profiles right now.
-                </div>
-            </div>
-        `;
-
-        if (count) {
-            count.textContent =
-                "Search error";
-        }
-
-        return;
-    }
-
-    let profiles =
-        data || [];
-
-    // Search, location, and interests
-    profiles =
-        profiles.filter(profile => {
-
-            const name =
-                String(
-                    profile.display_name || ""
-                ).toLowerCase();
-
-            const bio =
-                String(
-                    profile.bio || ""
-                ).toLowerCase();
-
-            const profileLocation =
-                String(
-                    profile.location || ""
-                ).toLowerCase();
-
-            const profileCategory =
-                String(
-                    profile.category || ""
-                ).toLowerCase();
-
-            const profileInterests =
-                Array.isArray(profile.interests)
-                    ? profile.interests
-                    : [];
-
-            const profileInterestText =
-                profileInterests
-                    .join(" ")
-                    .toLowerCase();
-
-            // General search
-            if (
-                search &&
-                !name.includes(search) &&
-                !bio.includes(search) &&
-                !profileLocation.includes(search) &&
-                !profileCategory.includes(search) &&
-                !profileInterestText.includes(search)
-            ) {
-                return false;
-            }
-
-            // Location
-            if (
-                location &&
-                !profileLocation.includes(location)
-            ) {
-                return false;
-            }
-
-            // Selected interests
-            if (
-                selectedInterests.length > 0
-            ) {
-
-                const hasInterest =
-                    selectedInterests.some(
-                        interest =>
-                            profileInterests
-                                .map(item =>
-                                    String(item).toLowerCase()
-                                )
-                                .includes(
-                                    interest.toLowerCase()
-                                )
-                    );
-
-                if (!hasInterest) {
-                    return false;
-                }
-            }
-
-            return true;
-        });
-
-    // Display results
-    if (profiles.length === 0) {
-
-        results.innerHTML = `
-            <div class="empty-results">
-                <div style="font-size:32px;margin-bottom:8px;">
-                    😕
-                </div>
-
-                <strong style="color:#aaa;">
-                    No matches found
-                </strong>
-
-                <div style="margin-top:6px;">
-                    Try changing your filters.
-                </div>
-            </div>
-        `;
-
-    } else {
-
-        results.innerHTML =
-            profiles
-                .map(profile =>
-                    profileCard(profile)
-                )
-                .join("");
-    }
-
-    if (count) {
-
-        count.textContent =
-            `${profiles.length} ${
-                profiles.length === 1
-                    ? "match"
-                    : "matches"
-            }`;
-    }
-}
-
-
-    container.innerHTML = `
-
-        <p class="info">
-            Loading profiles...
-        </p>
-
-    `;
-
-
-    try {
-
-        const {
-            data,
-            error
-        } = await supabaseClient
             .from("profiles")
             .select("*")
             .order(
@@ -3006,80 +3402,299 @@ async function runDiscoverySearch() {
             );
 
 
-        if (error) {
-            throw error;
-        }
+    /* PLATFORM */
+
+    if (platform) {
+
+        query =
+            query
+                .not(
+                    platform,
+                    "is",
+                    null
+                )
+                .neq(
+                    platform,
+                    ""
+                );
+    }
 
 
-        if (!data || data.length === 0) {
+    /* AGE */
 
-            container.innerHTML = `
+    if (
+        minAge !== null &&
+        !Number.isNaN(minAge)
+    ) {
 
-                <div class="result">
-
-                    <h2>
-                        No profiles yet
-                    </h2>
-
-                    <p>
-                        Be the first person to
-                        create a Social Hub profile!
-                    </p>
-
-                    <button
-                        class="primary-button"
-                        onclick="showPage('createPage')"
-                    >
-                        Create a Profile
-                    </button>
-
-                </div>
-
-            `;
-
-            return;
-        }
+        query =
+            query.gte(
+                "age",
+                minAge
+            );
+    }
 
 
-        container.innerHTML =
-            data
-                .map(profileCard)
-                .join("");
+    if (
+        maxAge !== null &&
+        !Number.isNaN(maxAge)
+    ) {
+
+        query =
+            query.lte(
+                "age",
+                maxAge
+            );
+    }
 
 
-    } catch (error) {
+    /* CATEGORY */
+
+    if (category) {
+
+        query =
+            query.eq(
+                "category",
+                category
+            );
+    }
+
+
+    const {
+        data,
+        error
+    } =
+        await query;
+
+
+    if (error) {
 
         console.error(
-            "Loading profiles error:",
+            "Discovery search error:",
             error
         );
 
 
-        container.innerHTML = `
+        results.innerHTML = `
 
-            <div class="result">
+            <div class="empty-results">
 
-                <h2>
-                    Couldn't load profiles
-                </h2>
+                <div style="font-size:32px;margin-bottom:8px;">
+                    ⚠️
+                </div>
 
-                <p>
+                <strong>
+                    Something went wrong
+                </strong>
+
+                <div style="margin-top:6px;">
                     ${escapeHTML(
                         error.message ||
-                        "Please try again."
+                        "We couldn't load profiles right now."
                     )}
-                </p>
-
-                <button
-                    class="primary-button"
-                    onclick="loadDiscoverProfiles()"
-                >
-                    Try Again
-                </button>
+                </div>
 
             </div>
 
         `;
+
+
+        if (count) {
+            count.textContent =
+                "Search error";
+        }
+
+
+        return;
+    }
+
+
+    let profiles =
+        data || [];
+
+
+    /* CLIENT-SIDE FILTERS */
+
+    profiles =
+        profiles.filter(
+            function(profile) {
+
+                const name =
+                    String(
+                        profile.display_name ||
+                        ""
+                    ).toLowerCase();
+
+
+                const bio =
+                    String(
+                        profile.bio ||
+                        ""
+                    ).toLowerCase();
+
+
+                const profileLocation =
+                    String(
+                        profile.location ||
+                        ""
+                    ).toLowerCase();
+
+
+                const profileCategory =
+                    String(
+                        profile.category ||
+                        ""
+                    ).toLowerCase();
+
+
+                const profileKik =
+                    String(
+                        profile.kik ||
+                        ""
+                    ).toLowerCase();
+
+
+                const profileSnapchat =
+                    String(
+                        profile.snapchat ||
+                        ""
+                    ).toLowerCase();
+
+
+                const profileInstagram =
+                    String(
+                        profile.instagram ||
+                        ""
+                    ).toLowerCase();
+
+
+                const profileTelegram =
+                    String(
+                        profile.telegram ||
+                        ""
+                    ).toLowerCase();
+
+
+                const profileInterests =
+                    Array.isArray(
+                        profile.interests
+                    )
+                        ? profile.interests
+                        : [];
+
+
+                const profileInterestText =
+                    profileInterests
+                        .join(" ")
+                        .toLowerCase();
+
+
+                /* GENERAL SEARCH */
+
+                if (
+                    search &&
+                    !name.includes(search) &&
+                    !bio.includes(search) &&
+                    !profileLocation.includes(search) &&
+                    !profileCategory.includes(search) &&
+                    !profileInterestText.includes(search) &&
+                    !profileKik.includes(search) &&
+                    !profileSnapchat.includes(search) &&
+                    !profileInstagram.includes(search) &&
+                    !profileTelegram.includes(search)
+                ) {
+
+                    return false;
+                }
+
+
+                /* LOCATION */
+
+                if (
+                    location &&
+                    !profileLocation.includes(location)
+                ) {
+
+                    return false;
+                }
+
+
+                /* INTERESTS */
+
+                if (
+                    discoveryInterests.length > 0
+                ) {
+
+                    const hasInterest =
+                        discoveryInterests.some(
+                            function(interest) {
+
+                                return profileInterests
+                                    .map(function(item) {
+                                        return String(item)
+                                            .toLowerCase();
+                                    })
+                                    .includes(
+                                        interest.toLowerCase()
+                                    );
+                            }
+                        );
+
+
+                    if (!hasInterest) {
+                        return false;
+                    }
+                }
+
+
+                return true;
+            }
+        );
+
+
+    /* RESULTS */
+
+    if (profiles.length === 0) {
+
+        results.innerHTML = `
+
+            <div class="empty-results">
+
+                <div style="font-size:32px;margin-bottom:8px;">
+                    😕
+                </div>
+
+                <strong>
+                    No matches found
+                </strong>
+
+                <div style="margin-top:6px;">
+                    Try changing your filters.
+                </div>
+
+            </div>
+
+        `;
+
+    } else {
+
+        results.innerHTML =
+            profiles
+                .map(function(profile) {
+                    return profileCard(profile);
+                })
+                .join("");
+    }
+
+
+    if (count) {
+
+        count.textContent =
+            `${profiles.length} ${
+                profiles.length === 1
+                    ? "match"
+                    : "matches"
+            }`;
     }
 }
 
@@ -3096,422 +3711,10 @@ document.addEventListener(
 
     }
 );
+
 </script>
 
 </div>
 
-<!-- =========================================================
-     SOCIAL PROMOTER — PEOPLE & GROUP DISCOVERY
-     ========================================================= -->
-
-/* ================= DISCOVERY PROFILE DETAILS ================= */
-
-.profile-meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin: 8px 0;
-    color: #999;
-    font-size: 13px;
-}
-
-.profile-meta span {
-    background: #111118;
-    border: 1px solid #292933;
-    border-radius: 999px;
-    padding: 6px 9px;
-}
-
-.profile-category {
-    display: inline-block;
-    margin: 4px 0 10px;
-    padding: 6px 10px;
-    border-radius: 999px;
-    background: #1c1c27;
-    border: 1px solid #343444;
-    color: #ddd;
-    font-size: 12px;
-    font-weight: 600;
-    text-transform: capitalize;
-}
-
-.profile-interests {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 7px;
-    margin: 12px 0;
-}
-
-.profile-interest {
-    display: inline-flex;
-    align-items: center;
-    padding: 6px 9px;
-    border-radius: 999px;
-    background: #14141c;
-    border: 1px solid #2c2c38;
-    color: #cfcfd8;
-    font-size: 12px;
-}
-
-.profile-card {
-    position: relative;
-    overflow: hidden;
-}
-
-.profile-card .profile-name {
-    margin-bottom: 4px;
-}
-
-.profile-card .profile-bio {
-    line-height: 1.5;
-}
-
-@media (max-width: 600px) {
-
-    .profile-meta {
-        gap: 6px;
-    }
-
-    .profile-meta span {
-        font-size: 12px;
-        padding: 5px 8px;
-    }
-
-    .profile-interest {
-        font-size: 11px;
-        padding: 5px 8px;
-    }
-}
-<style>
-  /* Discovery controls */
-  .discovery-section {
-    margin-top: 24px;
-  }
-
-  .discovery-tabs {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 16px;
-  }
-
-  .discovery-tab {
-    flex: 1;
-    border: 1px solid rgba(255,255,255,.10);
-    background: #17171d;
-    color: #aaa;
-    border-radius: 14px;
-    padding: 13px 16px;
-    font-size: 15px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: .2s ease;
-  }
-
-  .discovery-tab.active {
-    color: white;
-    background: linear-gradient(135deg, #24242d, #18181f);
-    border-color: rgba(255,255,255,.22);
-    box-shadow: 0 6px 20px rgba(0,0,0,.25);
-  }
-
-  .discovery-filters {
-    background: #111116;
-    border: 1px solid rgba(255,255,255,.08);
-    border-radius: 18px;
-    padding: 18px;
-    margin-bottom: 20px;
-  }
-
-  .filter-title {
-    color: white;
-    font-size: 18px;
-    font-weight: 800;
-    margin-bottom: 14px;
-  }
-
-  .filter-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
-  }
-
-  .filter-field {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-
-  .filter-field.full {
-    grid-column: 1 / -1;
-  }
-
-  .filter-field label {
-    color: #999;
-    font-size: 12px;
-    font-weight: 700;
-  }
-
-  .filter-field input,
-  .filter-field select {
-    width: 100%;
-    box-sizing: border-box;
-    background: #19191f;
-    color: white;
-    border: 1px solid rgba(255,255,255,.09);
-    border-radius: 11px;
-    padding: 12px;
-    outline: none;
-  }
-
-  .filter-field input:focus,
-  .filter-field select:focus {
-    border-color: rgba(255,255,255,.28);
-  }
-
-  .platform-options,
-  .interest-options {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  .filter-chip {
-    border: 1px solid rgba(255,255,255,.10);
-    background: #19191f;
-    color: #aaa;
-    border-radius: 999px;
-    padding: 9px 12px;
-    cursor: pointer;
-    font-size: 13px;
-    font-weight: 700;
-    transition: .2s ease;
-  }
-
-  .filter-chip.active {
-    color: white;
-    background: #292932;
-    border-color: rgba(255,255,255,.25);
-  }
-
-  .filter-actions {
-    display: flex;
-    gap: 10px;
-    margin-top: 16px;
-  }
-
-  .filter-actions button {
-    flex: 1;
-    border: 0;
-    border-radius: 12px;
-    padding: 12px;
-    font-weight: 800;
-    cursor: pointer;
-  }
-
-  .apply-filters {
-    background: white;
-    color: #08080c;
-  }
-
-  .clear-filters {
-    background: #202027;
-    color: white;
-  }
-
-  .discovery-results-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 12px;
-  }
-
-  .results-title {
-    color: white;
-    font-size: 17px;
-    font-weight: 800;
-  }
-
-  .results-count {
-    color: #888;
-    font-size: 13px;
-  }
-
-  .discovery-results {
-    display: grid;
-    gap: 12px;
-  }
-
-  .discovery-card {
-    background: #17171d;
-    border: 1px solid rgba(255,255,255,.08);
-    border-radius: 18px;
-    padding: 16px;
-  }
-
-  .discovery-card h3 {
-    color: white;
-    margin: 0 0 5px;
-    font-size: 17px;
-  }
-
-  .discovery-card p {
-    color: #999;
-    margin: 5px 0;
-    line-height: 1.45;
-    font-size: 14px;
-  }
-
-  .discovery-badges {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 7px;
-    margin-top: 10px;
-  }
-
-  .discovery-badge {
-    background: #222229;
-    color: #bbb;
-    border-radius: 999px;
-    padding: 6px 9px;
-    font-size: 11px;
-    font-weight: 700;
-  }
-
-  .empty-results {
-    text-align: center;
-    padding: 28px 18px;
-    color: #777;
-    background: #111116;
-    border-radius: 18px;
-    border: 1px solid rgba(255,255,255,.06);
-  }
-
-  @media (max-width: 600px) {
-    .filter-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .filter-field.full {
-      grid-column: auto;
-    }
-  }
-</style>
-
-<script>
-  /*
-   * Discovery foundation.
-   * This does NOT replace your existing profile system.
-   * It gives us the People / Groups filtering interface
-   * that we'll connect to Supabase in the next chunks.
-   */
-
-  window.socialPromoterDiscovery = {
-    mode: "people",
-
-    filters: {
-      search: "",
-      platform: "",
-      location: "",
-      minAge: "",
-      maxAge: "",
-      category: "",
-      interests: []
-    },
-    
-        syncFilters() {
-
-        this.filters.search =
-            document
-                .getElementById("discoverySearch")
-                .value
-                .trim();
-
-        this.filters.platform =
-            document
-                .getElementById("discoveryPlatform")
-                .value;
-
-        this.filters.location =
-            document
-                .getElementById("discoveryLocation")
-                .value
-                .trim();
-
-        this.filters.minAge =
-            document
-                .getElementById("discoveryMinAge")
-                .value
-                .trim();
-
-        this.filters.maxAge =
-            document
-                .getElementById("discoveryMaxAge")
-                .value
-                .trim();
-
-        this.filters.category =
-            document
-                .getElementById("discoveryCategory")
-                .value;
-    },
-
-    setMode(mode) {
-      this.mode = mode;
-
-      document.querySelectorAll(".discovery-tab").forEach(tab => {
-        tab.classList.toggle(
-          "active",
-          tab.dataset.mode === mode
-        );
-      });
-
-      const title = document.getElementById("discoveryFilterTitle");
-
-      if (title) {
-        title.textContent =
-          mode === "groups"
-            ? "Find Group Chats"
-            : "Find People";
-      }
-    },
-
-    toggleInterest(value, button) {
-      const index = this.filters.interests.indexOf(value);
-
-      if (index === -1) {
-        this.filters.interests.push(value);
-        button.classList.add("active");
-      } else {
-        this.filters.interests.splice(index, 1);
-        button.classList.remove("active");
-      }
-    },
-
-    clear() {
-      this.filters = {
-        search: "",
-        platform: "",
-        location: "",
-        minAge: "",
-        maxAge: "",
-        category: "",
-        interests: []
-      };
-
-      const form = document.getElementById("discoveryFilters");
-
-      if (form) {
-        form.reset();
-      }
-
-      document.querySelectorAll(".filter-chip").forEach(chip => {
-        chip.classList.remove("active");
-      });
-    }
-  };
-</script>
-
-<!-- Discovery UI will be inserted into the appropriate page
-     after the existing site navigation is connected. -->
 </body>
 </html>
