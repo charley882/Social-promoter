@@ -1011,6 +1011,114 @@ button:disabled {
         animation: none;
     }
 }
+
+</style>
+<style>
+/* ===== MOBILE POLISH ===== */
+* {
+    box-sizing: border-box;
+}
+html {
+    width: 100%;
+    overflow-x: hidden;
+}
+body {
+    width: 100%;
+    min-width: 0;
+    overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
+}
+/* Make the main content comfortable on phones */
+.container,
+main,
+section {
+    max-width: 100%;
+}
+button,
+input,
+textarea,
+select {
+    font: inherit;
+}
+/* Better touch targets */
+button,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+button {
+    min-height: 44px;
+}
+/* iPhone layout */
+@media (max-width: 600px) {
+    body {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+    h1 {
+        font-size: clamp(28px, 8vw, 40px);
+        line-height: 1.1;
+    }
+    h2 {
+        font-size: 24px;
+    }
+    h3 {
+        font-size: 19px;
+    }
+    input,
+    textarea,
+    select {
+        width: 100%;
+        max-width: 100%;
+        font-size: 16px;
+    }
+    textarea {
+        min-height: 110px;
+    }
+    button {
+        width: 100%;
+        max-width: 100%;
+    }
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+    /* Prevent long usernames/links from breaking the layout */
+    .profile-card,
+    .card {
+        width: 100%;
+        max-width: 100%;
+        overflow: hidden;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+    }
+    /* Social buttons */
+    .social-links,
+    .social-buttons,
+    .social-icons {
+        max-width: 100%;
+        flex-wrap: wrap;
+    }
+    /* Keep profile pictures nicely sized */
+    .profile-avatar {
+        width: 82px;
+        height: 82px;
+        max-width: 82px;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+}
+/* Extra-small iPhones */
+@media (max-width: 380px) {
+    body {
+        padding-left: 9px;
+        padding-right: 9px;
+    }
+    .profile-avatar {
+        width: 72px;
+        height: 72px;
+        max-width: 72px;
+    }
+}
 </style>
 </head>
 
