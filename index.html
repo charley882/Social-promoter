@@ -1334,6 +1334,69 @@ button {
         font-size: 12px;
     }
 }
+/* ===== HOMEPAGE CARD POLISH ===== */
+
+.card {
+    isolation: isolate;
+}
+
+.card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(
+        135deg,
+        rgba(255,255,255,.045),
+        transparent 45%
+    );
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .25s ease;
+}
+
+.card:hover::after {
+    opacity: 1;
+}
+
+.card-icon {
+    transition:
+        transform .2s ease,
+        filter .2s ease;
+}
+
+.card:hover .card-icon {
+    transform: scale(1.04);
+}
+
+.card-text {
+    min-width: 0;
+}
+
+.card h2,
+.card p {
+    overflow-wrap: anywhere;
+}
+
+@media (max-width: 600px) {
+
+    .card {
+        min-height: 92px;
+    }
+
+    .card-icon {
+        flex: 0 0 auto;
+    }
+
+    .card h2 {
+        font-size: 19px;
+    }
+
+    .card p {
+        font-size: 13px;
+        line-height: 1.45;
+    }
+}
 </style>
 </head>
 
