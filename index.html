@@ -753,6 +753,36 @@ button:disabled {
     margin-top: 14px;
 }
 
+.platform-icon {
+    width: 22px;
+    height: 22px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.platform-icon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.platform-logo {
+    width: 42px;
+    height: 42px;
+    border-radius: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+}
+
+.platform-logo svg {
+    width: 24px;
+    height: 24px;
+}
 .social-link {
     display: flex;
     align-items: center;
@@ -783,13 +813,19 @@ button:disabled {
 }
 
 .social-icon {
-    width: 30px;
-    height: 30px;
-    flex: 0 0 30px;
+    width: 32px;
+    height: 32px;
+    flex: 0 0 32px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 23px;
+    color: currentColor;
+}
+
+.social-icon svg {
+    width: 25px;
+    height: 25px;
+    display: block;
 }
 
 .social-name {
@@ -1030,7 +1066,9 @@ button:disabled {
 
     <div class="card kik" onclick="showPage('kikPage')">
         <div class="card-content">
-            <div class="card-icon">🟢</div>
+            <div class="card-icon">
+    ${platformInfo.kik.icon}
+</div>
 
             <div class="card-text">
                 <h2>Kik</h2>
@@ -1042,7 +1080,9 @@ button:disabled {
 
     <div class="card snapchat" onclick="showPage('snapchatPage')">
         <div class="card-content">
-            <div class="card-icon">👻</div>
+            <div class="card-icon">
+    ${platformInfo.snapchat.icon}
+</div>
 
             <div class="card-text">
                 <h2>Snapchat</h2>
@@ -1054,7 +1094,9 @@ button:disabled {
 
     <div class="card instagram" onclick="showPage('instagramPage')">
         <div class="card-content">
-            <div class="card-icon">📸</div>
+            <div class="card-icon">
+    ${platformInfo.instagram.icon}
+</div>
 
             <div class="card-text">
                 <h2>Instagram</h2>
@@ -1066,7 +1108,9 @@ button:disabled {
 
     <div class="card telegram" onclick="showPage('telegramPage')">
         <div class="card-content">
-            <div class="card-icon">✈️</div>
+            <div class="card-icon">
+    ${platformInfo.telegram.icon}
+</div>
 
             <div class="card-text">
                 <h2>Telegram</h2>
@@ -2116,35 +2160,57 @@ function escapeHTML(text) {
    ========================================================= */
 
 const platformInfo = {
-
     kik: {
         name: "Kik",
-        icon: "🟢",
-        buttonClass: "kik-button",
-        result: "kikResult"
+        result: "kikResult",
+        icon: `
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="currentColor"
+                    d="M6.2 3.5c0-1 .8-1.8 1.8-1.8s1.8.8 1.8 1.8v6.7l5.7-6.9c.6-.8 1.8-.9 2.5-.2.8.6.9 1.8.2 2.5l-4.3 5.2 5.1 5.5c.7.7.6 1.9-.1 2.5-.7.7-1.8.6-2.5-.1l-4.7-5-1.9 2.2v1.6c0 1-.8 1.8-1.8 1.8s-1.8-.8-1.8-1.8V3.5Z"/>
+            </svg>
+        `
     },
 
     snapchat: {
         name: "Snapchat",
-        icon: "👻",
-        buttonClass: "snap-button",
-        result: "snapResult"
+        result: "snapResult",
+        icon: `
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="currentColor"
+                    d="M12 2.2c-3.2 0-5.6 2.5-5.6 5.8v2.2c0 .7-.3 1.1-.9 1.5-.5.3-1.1.5-1.7.7-.4.1-.7.4-.7.8 0 .7.8 1 1.4 1.2.6.2 1.2.4 1.5.8.2.3.1.7-.1 1.2-.2.5-.6 1.1-.4 1.5.2.4.8.5 1.4.5.5 0 1-.1 1.5-.2.5-.1.9-.1 1.2.1.4.3.8.8 1.5 1.3.7.5 1.5.8 2.4.8s1.7-.3 2.4-.8c.7-.5 1.1-1 1.5-1.3.3-.2.7-.2 1.2-.1.5.1 1 .2 1.5.2.6 0 1.2-.1 1.4-.5.2-.4-.2-1-.4-1.5-.2-.5-.3-.9-.1-1.2.3-.4.9-.6 1.5-.8.6-.2 1.4-.5 1.4-1.2 0-.4-.3-.7-.7-.8-.6-.2-1.2-.4-1.7-.7-.6-.4-.9-.8-.9-1.5V8c0-3.3-2.4-5.8-5.6-5.8Z"/>
+            </svg>
+        `
     },
 
     instagram: {
         name: "Instagram",
-        icon: "📸",
-        buttonClass: "instagram-button",
-        result: "instagramResult"
+        result: "instagramResult",
+        icon: `
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="3" y="3" width="18" height="18" rx="5"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"/>
+                <circle cx="12" cy="12" r="4"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"/>
+                <circle cx="17.4" cy="6.7" r="1.2"
+                    fill="currentColor"/>
+            </svg>
+        `
     },
 
     telegram: {
         name: "Telegram",
-        icon: "✈️",
-        buttonClass: "telegram-button",
-        result: "telegramResult"
+        result: "telegramResult",
+        icon: `
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="currentColor"
+                    d="M21.4 4.2 18.2 19c-.2 1-1 1.3-1.8.8l-4.8-3.5-2.3 2.2c-.3.3-.5.5-1 .5l.3-4.8 8.7-7.8c.4-.3-.1-.5-.6-.2L6 12.9l-4.6-1.5c-1-.3-1-1 .2-1.5L19.5 3.4c.9-.3 1.7.2 1.9.8Z"/>
+            </svg>
+        `
     }
-
 };
 
 
