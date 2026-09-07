@@ -1513,6 +1513,65 @@ button:focus-visible {
         width: 100%;
     }
 }
+/* ===== FINAL PANEL POLISH ===== */
+
+.panel {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+}
+
+.panel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.035),
+            transparent 35%
+        );
+    pointer-events: none;
+}
+
+.panel > * {
+    position: relative;
+    z-index: 1;
+}
+
+.section-label {
+    letter-spacing: .12em;
+}
+
+.muted {
+    color: rgba(255,255,255,.58);
+}
+
+.empty-state {
+    padding: 28px 18px;
+    text-align: center;
+    border-radius: 18px;
+}
+
+.toast {
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+}
+
+@media (max-width: 600px) {
+
+    .panel {
+        border-radius: 20px;
+    }
+
+    .section-label {
+        font-size: 11px;
+    }
+
+    .empty-state {
+        padding: 24px 15px;
+    }
+}
 </style>
 </head>
 
